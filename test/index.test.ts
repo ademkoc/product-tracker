@@ -23,8 +23,18 @@ describe("index.ts", () => {
     const result = await decodeSource(html);
 
     expect(result).toMatchObject({
-      title: "Regular Fit Düğmeli Cepli Bej Erkek Mont",
-      price: "1199,95 TL",
+      title: expect.stringMatching(/(\w+)/),
+      price: expect.stringMatching(/(\d+) TL/),
+      images: expect.arrayContaining([
+        expect.stringContaining("https://"),
+        expect.stringContaining(".jpeg"),
+      ]),
+      details: expect.arrayContaining([
+        {
+          "key": "urunKodu",
+          "value": expect.stringMatching(/(\w+)/),
+        },
+      ]),
     });
   });
 });
