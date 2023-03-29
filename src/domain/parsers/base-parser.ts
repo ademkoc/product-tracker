@@ -1,7 +1,7 @@
 import { fetch } from "undici";
 import { parse } from "muninn";
 
-export abstract class BaseParser {
+export abstract class BaseParser<T> {
   private config = {};
 
   setConfig(config: any) {
@@ -22,9 +22,9 @@ export abstract class BaseParser {
     return result;
   }
 
-  async parse(url: string) {
+  async parse(url: string): Promise<T> {
     const html = await this.#readSource(url);
     const result = this.#decodeSource(html);
-    return result;
+    return result as T;
   }
 }

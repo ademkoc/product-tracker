@@ -1,13 +1,14 @@
 import camelcase from "camelcase";
 
+import { ColinsProduct, ParserConfig } from "./types";
 import { BaseParser } from "./base-parser";
 import { convertTurkishChars as en } from "../../utils";
 
-export class ColinsParser extends BaseParser {
+export class ColinsParser extends BaseParser<ColinsProduct> {
   public constructor() {
     super();
 
-    const config = {
+    const config: ParserConfig = {
       schema: {
         title: ".product-detail-product-name",
         price: {
@@ -34,11 +35,11 @@ export class ColinsParser extends BaseParser {
     this.setConfig(config);
   }
 
-  recordTransformser(value: string) {
+  recordTransformser(value: any) {
     return camelcase(en(value.slice(0, -2)));
   }
 
-  priceTransformer(priceStr: string) {
+  priceTransformer(priceStr: any) {
     const currency = priceStr.slice(-2);
     const amount = parseFloat(priceStr.slice(0, -3).replace(",", "."));
     return { currency, amount };
