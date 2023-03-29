@@ -1,12 +1,5 @@
-import {
-  afterEach,
-  beforeEach,
-  describe,
-  expect,
-  it,
-  TestContext,
-} from "vitest";
-import { decodeSource, readProductSource } from "../src/index";
+import { ColinsParser } from "src/domain/parsers/colins";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { LocalTestContext, setup, setupProductMock, teardown } from "./_setup";
 
 beforeEach<LocalTestContext>(setup);
@@ -18,9 +11,8 @@ describe("index.ts", () => {
       "https://www.colins.com.tr/p/regular-fit-dugmeli-cepli-bej-erkek-mont-39024";
     await setupProductMock(context);
 
-    const html = await readProductSource(url);
-
-    const result = await decodeSource(html);
+    const parser = new ColinsParser();
+    const result = await parser.parse(url);
 
     expect(result).toMatchObject({
       title: expect.stringMatching(/(\w+)/),
