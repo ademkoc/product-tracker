@@ -1,3 +1,4 @@
+import { Curreny } from "src/domain/constants/currencies";
 import { ColinsParser } from "src/domain/parsers/colins";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { LocalTestContext, setup, setupProductMock, teardown } from "./_setup";
@@ -16,7 +17,10 @@ describe("index.ts", () => {
 
     expect(result).toMatchObject({
       title: expect.stringMatching(/(\w+)/),
-      price: expect.stringMatching(/(\d+) TL/),
+      price: expect.objectContaining({
+        amount: expect.any(Number),
+        currency: expect.stringContaining(Curreny.TL),
+      }),
       images: expect.arrayContaining([
         expect.stringContaining("https://"),
         expect.stringContaining(".jpeg"),
