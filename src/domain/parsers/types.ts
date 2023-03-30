@@ -5,7 +5,7 @@ export type ParserConfig = {
   schema: Schema;
 };
 
-export type ColinsProduct = {
+export type ProductDTO = {
   title: string;
   price: number;
   curreny: string;
