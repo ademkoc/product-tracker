@@ -7,5 +7,5 @@ export type ParserConfig = {
 
 export type Price = {
   price: number;
-  curreny: string;
+  currency: string;
 };

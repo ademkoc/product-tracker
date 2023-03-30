@@ -1,3 +1,3 @@
-export const Curreny = {
+export const Currency = {
   TL: "TL",
 };
