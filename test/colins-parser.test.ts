@@ -1,6 +1,7 @@
+import { Prisma } from "@prisma/client";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
-import { Curreny } from "../src/constants/currencies";
+import { Currency } from "../src/constants/currencies";
 import { ColinsParser } from "../src/modules/parsers/colins.parser";
 import { LocalTestContext, setup, setupProductMock, teardown } from "./_setup";
 
@@ -19,8 +20,8 @@ describe("ColinsParser", () => {
 
       expect(result).toMatchObject({
         title: expect.stringMatching(/(\w+)/),
-        amount: expect.any(Number),
-        currency: expect.stringContaining(Curreny.TL),
+        amount: expect.any(Prisma.Decimal),
+        currency: expect.stringContaining(Currency.TL),
         images: expect.arrayContaining([
           expect.stringContaining("https://"),
           expect.stringContaining(".jpeg"),
@@ -39,8 +40,8 @@ describe("ColinsParser", () => {
       const result = await parser.parsePrice(url);
 
       expect(result).toMatchObject({
-        amount: expect.any(Number),
-        currency: expect.stringContaining(Curreny.TL),
+        amount: expect.any(Prisma.Decimal),
+        currency: expect.stringContaining(Currency.TL),
       });
     });
   });

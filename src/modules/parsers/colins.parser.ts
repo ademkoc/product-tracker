@@ -1,4 +1,5 @@
 import camelcase from "camelcase";
+import { Prisma } from "@prisma/client";
 
 import { BaseParser } from "./base-parser";
 import { ParserConfig, Price } from "./parser.types";
@@ -51,7 +52,7 @@ export class ColinsParser extends BaseParser<CreateProductDTO, Price> {
 
   amountTransformer(priceStr: any) {
     const amount = parseFloat(priceStr.slice(0, -3).replace(",", "."));
-    return amount;
+    return new Prisma.Decimal(amount);
   }
 
   currencyTransformer(priceStr: any) {
