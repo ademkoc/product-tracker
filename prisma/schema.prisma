@@ -25,7 +25,7 @@ model Product {
 model PriceHistory {
   id        Int      @id @default(autoincrement())
   productId Int
-  price     Decimal
+  amount    Decimal
   currency  String
   createdAt DateTime @default(now())
 }

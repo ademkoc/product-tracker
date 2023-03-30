@@ -6,6 +6,6 @@ export type ParserConfig = {
 };
 
 export type Price = {
-  price: number;
+  amount: number;
   currency: string;
 };
