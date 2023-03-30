@@ -1,7 +1,8 @@
 import camelcase from "camelcase";
 
 import { BaseParser } from "./base-parser";
-import { CreateProductDTO, ParserConfig, Price } from "../../types";
+import { ParserConfig, Price } from "./parser.types";
+import { CreateProductDTO } from "src/schemas/product";
 import { convertTurkishChars as en } from "../../utils";
 
 export class ColinsParser extends BaseParser<CreateProductDTO, Price> {

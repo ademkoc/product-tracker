@@ -1,5 +1,8 @@
+import { PrismaClient } from "@prisma/client";
+
 import { Either } from "src/utils";
-import { CreateProductDTO, PrismaClient, ProductWithImages } from "src/types";
+import { ProductWithImages } from "./product.types";
+import { CreateProductDTO } from "src/schemas/product";
 
 export class ProductService {
   private readonly prismaService: PrismaClient;

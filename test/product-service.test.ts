@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { generateMock } from "@anatine/zod-mock";
 import { beforeEach, describe, expect, it } from "vitest";
 
-import { CREATE_PRODUCT_SCHEMA } from "src/types";
+import { CREATE_PRODUCT_SCHEMA } from "src/schemas";
 import { cleanTables, DB_MODEL } from "./db-cleaner";
 import { ProductService } from "src/modules/product/product.service";
 

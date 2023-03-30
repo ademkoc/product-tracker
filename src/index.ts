@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { ColinsParser } from "./modules/product";
+import { ColinsParser } from "./modules/parsers";
 import { ProductService } from "./modules/product/product.service";
 
 const prisma = new PrismaClient();
