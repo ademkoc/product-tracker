@@ -12,9 +12,13 @@ export class ColinsParser extends BaseParser<ProductDTO, Price> {
       selector: "div.product-details-page",
       schema: {
         title: ".product-detail-product-name",
-        price: {
+        amount: {
           selector: ".product-detail-price",
-          transform: this.priceTransformer,
+          transform: this.amountTransformer,
+        },
+        currency: {
+          selector: ".product-detail-price",
+          transform: this.currencyTransformer,
         },
         images: {
           "selector": ".product-detail-left img | array",
@@ -26,9 +30,13 @@ export class ColinsParser extends BaseParser<ProductDTO, Price> {
     const priceConfig: ParserConfig = {
       selector: "div.product-detail-product-prices-container",
       schema: {
-        price: {
+        amount: {
           selector: ".product-detail-price",
-          transform: this.priceTransformer,
+          transform: this.amountTransformer,
+        },
+        currency: {
+          selector: ".product-detail-price",
+          transform: this.currencyTransformer,
         },
       },
     };
@@ -40,9 +48,13 @@ export class ColinsParser extends BaseParser<ProductDTO, Price> {
     return camelcase(en(value.slice(0, -2)));
   }
 
-  priceTransformer(priceStr: any) {
-    const currency = priceStr.slice(-2);
+  amountTransformer(priceStr: any) {
     const amount = parseFloat(priceStr.slice(0, -3).replace(",", "."));
-    return { currency, amount };
+    return amount;
+  }
+
+  currencyTransformer(priceStr: any) {
+    const currency = priceStr.slice(-2);
+    return currency;
   }
 }
