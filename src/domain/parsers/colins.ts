@@ -15,16 +15,6 @@ export class ColinsParser extends BaseParser<ColinsProduct> {
           selector: ".product-detail-price",
           transform: this.priceTransformer,
         },
-        details: {
-          selector: "div#tabitem1 table tbody tr | array",
-          schema: {
-            key: {
-              selector: "th:nth-child(1)",
-              transform: this.recordTransformser,
-            },
-            value: "td:nth-child(2)",
-          },
-        },
         images: {
           "selector": ".product-detail-left img | array",
           "attr": "src",

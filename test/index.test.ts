@@ -25,12 +25,6 @@ describe("index.ts", () => {
         expect.stringContaining("https://"),
         expect.stringContaining(".jpeg"),
       ]),
-      details: expect.arrayContaining([
-        {
-          "key": "urunKodu",
-          "value": expect.stringMatching(/(\w+)/),
-        },
-      ]),
     });
   });
 });
