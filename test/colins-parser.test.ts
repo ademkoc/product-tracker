@@ -1,5 +1,5 @@
-import { Curreny } from "../src/domain/constants/currencies";
-import { ColinsParser } from "../src/domain/parsers/colins.parser";
+import { Curreny } from "../src/constants/currencies";
+import { ColinsParser } from "../src/modules/parsers/colins.parser";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { LocalTestContext, setup, setupProductMock, teardown } from "./_setup";
 

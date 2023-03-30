@@ -4,7 +4,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 
 import { CREATE_PRODUCT_SCHEMA } from "src/types";
 import { cleanTables, DB_MODEL } from "./db-cleaner";
-import { ProductService } from "src/domain/services/product.service";
+import { ProductService } from "src/modules/product/product.service";
 
 describe("ProductService", () => {
   let sut: ProductService;

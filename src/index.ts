@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
-import { ColinsParser } from "./domain";
-import { ProductService } from "./domain/services/product.service";
+import { ColinsParser } from "./modules/product";
+import { ProductService } from "./modules/product/product.service";
 
 const prisma = new PrismaClient();
 
