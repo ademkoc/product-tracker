@@ -1,13 +1,21 @@
+import { PrismaClient } from "@prisma/client";
 import { ColinsParser } from "./domain";
+import { ProductService } from "./domain/services/product.service";
+
+const prisma = new PrismaClient();
 
 async function main() {
   const productURL =
-    "https://www.colins.com.tr/p/regular-fit-dugmeli-cepli-bej-erkek-mont-39024";
+    "https://www.colins.com.tr/p/792-mila-orta-bel-duz-paca-regular-fit-mavi-kadin-jean-pantolon-28094";
 
   const parser = new ColinsParser();
-  const result = await parser.parse(productURL);
+  const productDTO = await parser.parseContent(productURL);
 
-  console.log({ result });
+  const service = new ProductService({ prismaService: prisma });
+
+  await service.createProduct(productDTO);
+
+  await prisma.$disconnect();
 }
 
 main();

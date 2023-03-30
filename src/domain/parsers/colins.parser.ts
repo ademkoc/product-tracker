@@ -1,10 +1,10 @@
 import camelcase from "camelcase";
 
 import { BaseParser } from "./base-parser";
-import { ParserConfig, Price, ProductDTO } from "./types";
+import { CreateProductDTO, ParserConfig, Price } from "../../types";
 import { convertTurkishChars as en } from "../../utils";
 
-export class ColinsParser extends BaseParser<ProductDTO, Price> {
+export class ColinsParser extends BaseParser<CreateProductDTO, Price> {
   public constructor() {
     super();
 

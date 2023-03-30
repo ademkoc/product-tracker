@@ -27,7 +27,7 @@ export abstract class BaseParser<T, V> {
   async parseContent(url: string): Promise<T> {
     const html = await this.#readSource(url);
     const result = this.#decodeSource(html, this.contentConfig);
-    return result as T;
+    return { ...result, url } as T;
   }
 
   async parsePrice(url: string): Promise<V> {
