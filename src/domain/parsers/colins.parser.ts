@@ -1,7 +1,7 @@
 import camelcase from "camelcase";
 
-import { ParserConfig, Price, ProductDTO } from "./types";
 import { BaseParser } from "./base-parser";
+import { ParserConfig, Price, ProductDTO } from "./types";
 import { convertTurkishChars as en } from "../../utils";
 
 export class ColinsParser extends BaseParser<ProductDTO, Price> {
@@ -36,7 +36,7 @@ export class ColinsParser extends BaseParser<ProductDTO, Price> {
     this.setConfig({ contentConfig, priceConfig });
   }
 
-  recordTransformser(value: any) {
+  recordTransformer(value: any) {
     return camelcase(en(value.slice(0, -2)));
   }
 
