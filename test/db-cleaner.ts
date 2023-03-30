@@ -3,6 +3,7 @@ import type { PrismaClient } from "@prisma/client";
 export enum DB_MODEL {
   Product = "product",
   ProductImage = "productImage",
+  PriceHistory = "priceHistory",
 }
 
 export async function cleanTables(

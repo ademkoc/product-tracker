@@ -5,7 +5,7 @@ export abstract class BaseParser<T, V> {
   private contentConfig = {};
   private priceConfig = {};
 
-  setConfig(opts: any) {
+  protected setConfig(opts: any) {
     this.contentConfig = opts.contentConfig;
     this.priceConfig = opts.priceConfig;
   }
