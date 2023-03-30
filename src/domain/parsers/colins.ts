@@ -1,14 +1,15 @@
 import camelcase from "camelcase";
 
-import { ColinsProduct, ParserConfig } from "./types";
+import { ColinsProduct, ParserConfig, Price } from "./types";
 import { BaseParser } from "./base-parser";
 import { convertTurkishChars as en } from "../../utils";
 
-export class ColinsParser extends BaseParser<ColinsProduct> {
+export class ColinsParser extends BaseParser<ColinsProduct, Price> {
   public constructor() {
     super();
 
-    const config: ParserConfig = {
+    const contentConfig: ParserConfig = {
+      selector: "div.product-details-page",
       schema: {
         title: ".product-detail-product-name",
         price: {
@@ -22,7 +23,17 @@ export class ColinsParser extends BaseParser<ColinsProduct> {
       },
     };
 
-    this.setConfig(config);
+    const priceConfig: ParserConfig = {
+      selector: "div.product-detail-product-prices-container",
+      schema: {
+        price: {
+          selector: ".product-detail-price",
+          transform: this.priceTransformer,
+        },
+      },
+    };
+
+    this.setConfig({ contentConfig, priceConfig });
   }
 
   recordTransformser(value: any) {

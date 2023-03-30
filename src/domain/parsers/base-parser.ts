@@ -1,11 +1,13 @@
 import { fetch } from "undici";
 import { parse } from "muninn";
 
-export abstract class BaseParser<T> {
-  private config = {};
+export abstract class BaseParser<T, V> {
+  private contentConfig = {};
+  private priceConfig = {};
 
-  setConfig(config: any) {
-    this.config = config;
+  setConfig(opts: any) {
+    this.contentConfig = opts.contentConfig;
+    this.priceConfig = opts.priceConfig;
   }
 
   async #readSource(url: string) {
@@ -16,15 +18,21 @@ export abstract class BaseParser<T> {
     return html;
   }
 
-  #decodeSource(html: string) {
-    const result = parse(html, this.config);
+  #decodeSource(html: string, config: any) {
+    const result = parse(html, config);
 
     return result;
   }
 
-  async parse(url: string): Promise<T> {
+  async parseContent(url: string): Promise<T> {
     const html = await this.#readSource(url);
-    const result = this.#decodeSource(html);
+    const result = this.#decodeSource(html, this.contentConfig);
     return result as T;
+  }
+
+  async parsePrice(url: string): Promise<V> {
+    const html = await this.#readSource(url);
+    const result = this.#decodeSource(html, this.priceConfig);
+    return result as V;
   }
 }
