@@ -2,7 +2,7 @@ import { Prisma } from "@prisma/client";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
 import { Currency } from "../src/constants/currencies";
-import { ColinsParser } from "../src/modules/parsers/colins.parser";
+import { ColinsParser } from "../src/modules/parsers/colins/colins.parser";
 import { LocalTestContext, setup, setupProductMock, teardown } from "./_setup";
 
 beforeEach<LocalTestContext>(setup);
