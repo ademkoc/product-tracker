@@ -1,7 +1,7 @@
 import { fetch } from "undici";
 import { parse } from "muninn";
 
-export abstract class BaseParser<T, V> {
+export abstract class AbstractParser<T, V> {
   private contentConfig = {};
   private priceConfig = {};
 
