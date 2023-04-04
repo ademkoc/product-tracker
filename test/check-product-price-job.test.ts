@@ -1,12 +1,14 @@
 import { Prisma, PrismaClient } from "@prisma/client";
-import { mockClear, mockDeep } from "vitest-mock-extended";
-import { afterAll, afterEach, beforeEach, describe, expect, it } from "vitest";
+import { mock, mockClear, mockDeep } from "vitest-mock-extended";
+import { afterAll, beforeEach, describe, expect, it } from "vitest";
 
 import { ColinsParser } from "src/modules/parsers";
 import { CheckProductPriceJob } from "src/modules/product/jobs/check-product-price.job";
+import { PushNotificationService } from "src/modules/notification/push/push-notification.service";
 
 const mockedParser = mockDeep<ColinsParser>();
 const mockedPrismaService = mockDeep<PrismaClient>();
+const mockedPushNotificationService = mock<PushNotificationService>();
 
 describe("CheckProductPriceJob", () => {
   let sut: CheckProductPriceJob;
@@ -15,19 +17,22 @@ describe("CheckProductPriceJob", () => {
     sut = new CheckProductPriceJob({
       parser: mockedParser,
       prismaService: mockedPrismaService,
+      notificationService: mockedPushNotificationService,
     });
   });
 
   afterAll(() => {
     mockClear(mockedParser);
     mockClear(mockedPrismaService);
+    mockClear(mockedPushNotificationService);
   });
 
-  it("should give an alarm when the price drops", async () => {
+  it("should notify when the price drops", async () => {
     const mockProduct = {
       id: 1,
-      url: "",
-      title: "",
+      url:
+        "https://www.colins.com.tr/p/regular-fit-dugmeli-cepli-bej-erkek-mont-39024",
+      title: "Regular Fit Düğmeli Cepli Bej Erkek Mont",
       amount: new Prisma.Decimal(100),
       currency: "TL",
       lastCheckedAt: new Date(),
@@ -36,8 +41,13 @@ describe("CheckProductPriceJob", () => {
     };
 
     mockedPrismaService.product.findMany.mockResolvedValue([mockProduct]);
-    mockedParser.parsePrice.mockResolvedValue({ amount: 99.5, currency: "TL" });
+    mockedParser.parsePrice.mockResolvedValue({
+      amount: new Prisma.Decimal(99.9),
+      currency: "TL",
+    });
 
-    await expect(sut.process).rejects.toThrowError();
+    await sut.process();
+
+    expect(mockedPushNotificationService.notify).toBeCalledTimes(1);
   });
 });
