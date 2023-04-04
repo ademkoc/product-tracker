@@ -1,3 +1,4 @@
+import { Prisma } from "@prisma/client";
 import { Schema } from "muninn";
 
 export type ParserConfig = {
@@ -6,6 +7,6 @@ export type ParserConfig = {
 };
 
 export type Price = {
-  amount: number;
+  amount: Prisma.Decimal;
   currency: string;
 };
