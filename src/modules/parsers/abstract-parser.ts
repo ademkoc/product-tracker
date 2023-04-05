@@ -1,9 +1,15 @@
 import { fetch } from "undici";
 import { parse } from "muninn";
 
-import { ParserConfigs } from "./parser.types";
+import { ParserConfigs, Price } from "./parser.types";
+import { CreateProductDTO } from "src/schemas/product";
 
-export abstract class AbstractParser<T, V> {
+export type IParser = {
+  parseContent: (url: string) => Promise<CreateProductDTO>;
+  parsePrice: (url: string) => Promise<Price>;
+};
+
+export abstract class AbstractParser {
   private contentConfig = {};
   private priceConfig = {};
 
@@ -26,15 +32,15 @@ export abstract class AbstractParser<T, V> {
     return result;
   }
 
-  async parseContent(url: string): Promise<T> {
+  async parseContent(url: string): Promise<CreateProductDTO> {
     const html = await this.#readSource(url);
     const result = this.#decodeSource(html, this.contentConfig);
-    return { ...result, url } as T;
+    return { ...result, url } as CreateProductDTO;
   }
 
-  async parsePrice(url: string): Promise<V> {
+  async parsePrice(url: string): Promise<Price> {
     const html = await this.#readSource(url);
     const result = this.#decodeSource(html, this.priceConfig);
-    return result as V;
+    return result as Price;
   }
 }
