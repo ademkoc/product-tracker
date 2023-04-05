@@ -1,7 +1,6 @@
 import { TestContext } from "vitest";
 import { readFile } from "node:fs/promises";
 import { MockAgent, MockPool, setGlobalDispatcher } from "undici";
-import path from "node:path";
 
 export interface LocalTestContext {
   mock: MockAgent;
@@ -10,33 +9,34 @@ export interface LocalTestContext {
 
 type Context = TestContext & LocalTestContext;
 
-const origin = "https://www.colins.com.tr";
+export function createTestContext(origin: string, mockDataPath: string) {
+  return {
+    setup(context: Context) {
+      const mockAgent = new MockAgent();
+      mockAgent.disableNetConnect();
+      setGlobalDispatcher(mockAgent);
 
-export function setup(context: Context) {
-  const mockAgent = new MockAgent();
-  mockAgent.disableNetConnect();
-  setGlobalDispatcher(mockAgent);
+      const pool = mockAgent.get(origin);
 
-  const pool = mockAgent.get(origin);
+      context.mock ||= mockAgent;
+      context.intercept ||= MockPool.prototype.intercept.bind(pool);
+    },
 
-  context.mock ||= mockAgent;
-  context.intercept ||= MockPool.prototype.intercept.bind(pool);
-}
+    async teardown(context: Context) {
+      const pending = context.mock.pendingInterceptors();
+      if (!(pending.length === 1 && pending[0].persist === true)) {
+        context.mock.assertNoPendingInterceptors();
+      }
+      await context.mock.close();
+    },
 
-export async function teardown(context: Context) {
-  const pending = context.mock.pendingInterceptors();
-  if (!(pending.length === 1 && pending[0].persist === true)) {
-    context.mock.assertNoPendingInterceptors();
-  }
-  await context.mock.close();
-}
+    async setupProductMock(context: Context) {
+      const mockResponse = await readFile(mockDataPath);
 
-export async function setupProductMock(context: Context) {
-  const mockResponse = await readFile(
-    path.join(__dirname, "mock-data", "product.html"),
-  );
-  context.intercept({
-    path: new RegExp("/p/(.*?)"),
-    method: "GET",
-  }).reply(200, mockResponse.toString());
+      context.intercept({
+        path: new RegExp("/p/(.*?)"),
+        method: "GET",
+      }).reply(200, mockResponse.toString());
+    },
+  };
 }
