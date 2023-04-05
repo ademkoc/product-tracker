@@ -1,8 +1,8 @@
 import { PrismaClient } from "@prisma/client";
 
 import { Either } from "src/utils";
-import { ProductWithImages } from "./product.types";
-import { CreateProductDTO } from "src/schemas/product";
+import { ProductWithImages } from "../product.types";
+import { ProductSchemaType } from "src/schemas/product";
 
 export class ProductService {
   private readonly prismaService: PrismaClient;
@@ -11,7 +11,15 @@ export class ProductService {
     this.prismaService = opts.prismaService;
   }
 
-  async createProduct(productDTO: CreateProductDTO) {
+  async getProducts() {
+    const products = await this.prismaService.product.findMany({
+      include: { images: true },
+    });
+
+    return products;
+  }
+
+  async createProduct(productDTO: ProductSchemaType) {
     const product = await this.prismaService.product.create({
       data: {
         url: productDTO.url,
