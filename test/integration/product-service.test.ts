@@ -4,7 +4,7 @@ import { afterAll, beforeEach, describe, expect, it } from "vitest";
 
 import { ProductSchema } from "../../src/schemas";
 import { cleanTables, DB_MODEL } from "./db-cleaner";
-import { ProductService } from "src/modules/product/product.service";
+import { ProductService } from "../../src/modules/product";
 
 const prismaService = new PrismaClient();
 

@@ -2,9 +2,9 @@ import { Prisma, PrismaClient } from "@prisma/client";
 import { mock, mockClear, mockDeep } from "vitest-mock-extended";
 import { afterAll, beforeEach, describe, expect, it } from "vitest";
 
-import { ColinsParser } from "src/modules/parsers";
-import { CheckProductPriceJob } from "src/modules/product/jobs/check-product-price.job";
-import { PushNotificationService } from "src/modules/notification/push/push-notification.service";
+import { ColinsParser } from "../../src/modules/parsers";
+import { CheckProductPriceJob } from "../../src/modules/product/jobs/check-product-price.job";
+import { PushNotificationService } from "../../src/modules/notification/push/push-notification.service";
 
 const mockedParser = mockDeep<ColinsParser>();
 const mockedPrismaService = mockDeep<PrismaClient>();
