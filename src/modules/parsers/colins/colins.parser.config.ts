@@ -1,5 +1,5 @@
 import { ParserConfigs } from "../parser.types";
-import { amountTransformer, currencyTransformer } from "./colins.helpers";
+import { amountTransformer, currencyTransformer } from "../common";
 
 export const colinsConfig: ParserConfigs = {
   content: {

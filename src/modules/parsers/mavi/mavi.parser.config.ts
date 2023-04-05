@@ -1,8 +1,5 @@
 import { ParserConfigs } from "../parser.types";
-import {
-  amountTransformer,
-  currencyTransformer,
-} from "../colins/colins.helpers";
+import { amountTransformer, currencyTransformer } from "../common";
 
 export const maviConfig: ParserConfigs = {
   content: {
