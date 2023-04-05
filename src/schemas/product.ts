@@ -1,7 +1,7 @@
 import { Static, Type } from "@sinclair/typebox";
-import { Currency } from "src/constants";
+import { Currency } from "../constants";
 
-export const CREATE_PRODUCT_SCHEMA = Type.Object({
+export const ProductSchema = Type.Object({
   url: Type.String({ format: "uri" }),
   title: Type.String(),
   amount: Type.Number(),
@@ -9,4 +9,14 @@ export const CREATE_PRODUCT_SCHEMA = Type.Object({
   images: Type.Array(Type.String({ format: "uri" })),
 });
 
-export type CreateProductDTO = Static<typeof CREATE_PRODUCT_SCHEMA>;
+export const CreateProductSchema = Type.Object({
+  url: Type.String({ format: "uri" }),
+});
+
+export const IdParamSchema = Type.Object({
+  id: Type.Number(),
+});
+
+export type ProductSchemaType = Static<typeof ProductSchema>;
+export type CreateProductSchemaType = Static<typeof CreateProductSchema>;
+export type IdParamSchemaType = Static<typeof IdParamSchema>;

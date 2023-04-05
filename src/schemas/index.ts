@@ -1,1 +1,8 @@
-export { CREATE_PRODUCT_SCHEMA } from "./product";
+export {
+  CreateProductSchema,
+  CreateProductSchemaType,
+  IdParamSchema,
+  IdParamSchemaType,
+  ProductSchema,
+  ProductSchemaType,
+} from "./product";

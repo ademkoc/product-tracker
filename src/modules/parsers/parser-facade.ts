@@ -1,5 +1,6 @@
 import { IParser } from "./abstract-parser";
 import { ColinsParser, MaviParser } from ".";
+import { ProductSchemaType } from "src/schemas";
 
 export class ParserFacade {
   private parsers: Map<string, IParser>;
@@ -10,7 +11,7 @@ export class ParserFacade {
     this.parsers.set(MaviParser.NAME, new MaviParser());
   }
 
-  async parse(url: string) {
+  async parse(url: string): Promise<ProductSchemaType> {
     const { hostname } = new URL(url);
 
     const key = [

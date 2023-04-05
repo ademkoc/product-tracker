@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { JSONSchemaFaker } from "json-schema-faker";
 import { afterAll, beforeEach, describe, expect, it } from "vitest";
 
-import { CREATE_PRODUCT_SCHEMA } from "src/schemas";
+import { ProductSchema } from "../../src/schemas";
 import { cleanTables, DB_MODEL } from "./db-cleaner";
 import { ProductService } from "src/modules/product/product.service";
 
@@ -27,7 +27,7 @@ describe("ProductService", () => {
 
   describe("createProduct()", () => {
     it("should create product", async () => {
-      const createProductDTO = JSONSchemaFaker.generate(CREATE_PRODUCT_SCHEMA);
+      const createProductDTO = JSONSchemaFaker.generate(ProductSchema);
 
       const product = await sut.createProduct(createProductDTO);
 
@@ -37,7 +37,7 @@ describe("ProductService", () => {
 
   describe("getProduct()", () => {
     it("should show product with images", async () => {
-      const createProductDTO = JSONSchemaFaker.generate(CREATE_PRODUCT_SCHEMA);
+      const createProductDTO = JSONSchemaFaker.generate(ProductSchema);
       const createdProduct = await sut.createProduct(createProductDTO);
 
       const { result } = await sut.getProduct(createdProduct.id);
