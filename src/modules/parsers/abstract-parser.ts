@@ -1,13 +1,15 @@
 import { fetch } from "undici";
 import { parse } from "muninn";
 
+import { ParserConfigs } from "./parser.types";
+
 export abstract class AbstractParser<T, V> {
   private contentConfig = {};
   private priceConfig = {};
 
-  protected setConfig(opts: any) {
-    this.contentConfig = opts.contentConfig;
-    this.priceConfig = opts.priceConfig;
+  protected setConfig(opts: ParserConfigs) {
+    this.contentConfig = opts.content;
+    this.priceConfig = opts.price;
   }
 
   async #readSource(url: string) {

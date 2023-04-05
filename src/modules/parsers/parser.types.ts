@@ -10,3 +10,8 @@ export type Price = {
   amount: Prisma.Decimal;
   currency: string;
 };
+
+export type ParserConfigs = {
+  content: ParserConfig;
+  price: ParserConfig;
+};
