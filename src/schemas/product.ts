@@ -1,11 +1,12 @@
-import { z } from "zod";
+import { Static, Type } from "@sinclair/typebox";
+import { Currency } from "src/constants";
 
-export const CREATE_PRODUCT_SCHEMA = z.object({
-  url: z.string().url(),
-  title: z.string(),
-  amount: z.number(),
-  currency: z.string(),
-  images: z.array(z.string().url()),
+export const CREATE_PRODUCT_SCHEMA = Type.Object({
+  url: Type.String({ format: "uri" }),
+  title: Type.String(),
+  amount: Type.Number(),
+  currency: Type.Enum(Currency),
+  images: Type.Array(Type.String({ format: "uri" })),
 });
 
-export type CreateProductDTO = z.infer<typeof CREATE_PRODUCT_SCHEMA>;
+export type CreateProductDTO = Static<typeof CREATE_PRODUCT_SCHEMA>;

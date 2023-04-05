@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { generateMock } from "@anatine/zod-mock";
+import { JSONSchemaFaker } from "json-schema-faker";
 import { afterAll, beforeEach, describe, expect, it } from "vitest";
 
 import { CREATE_PRODUCT_SCHEMA } from "src/schemas";
@@ -27,7 +27,7 @@ describe("ProductService", () => {
 
   describe("createProduct()", () => {
     it("should create product", async () => {
-      const createProductDTO = generateMock(CREATE_PRODUCT_SCHEMA);
+      const createProductDTO = JSONSchemaFaker.generate(CREATE_PRODUCT_SCHEMA);
 
       const product = await sut.createProduct(createProductDTO);
 
@@ -37,7 +37,7 @@ describe("ProductService", () => {
 
   describe("getProduct()", () => {
     it("should show product with images", async () => {
-      const createProductDTO = generateMock(CREATE_PRODUCT_SCHEMA);
+      const createProductDTO = JSONSchemaFaker.generate(CREATE_PRODUCT_SCHEMA);
       const createdProduct = await sut.createProduct(createProductDTO);
 
       const { result } = await sut.getProduct(createdProduct.id);
