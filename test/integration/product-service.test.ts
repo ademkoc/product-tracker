@@ -1,18 +1,24 @@
 import { PrismaClient } from "@prisma/client";
 import { generateMock } from "@anatine/zod-mock";
-import { beforeEach, describe, expect, it } from "vitest";
+import { afterAll, beforeEach, describe, expect, it } from "vitest";
 
 import { CREATE_PRODUCT_SCHEMA } from "src/schemas";
 import { cleanTables, DB_MODEL } from "./db-cleaner";
 import { ProductService } from "src/modules/product/product.service";
 
+const prismaService = new PrismaClient();
+
 describe("ProductService", () => {
   let sut: ProductService;
 
   beforeEach(async () => {
-    const prismaService = new PrismaClient();
-    await cleanTables(prismaService, [DB_MODEL.Product]);
+    await cleanTables(prismaService, [DB_MODEL.Product, DB_MODEL.ProductImage]);
     sut = new ProductService({ prismaService });
+  });
+
+  afterAll(async () => {
+    await cleanTables(prismaService, [DB_MODEL.Product, DB_MODEL.ProductImage]);
+    prismaService.$disconnect();
   });
 
   it("is defined", () => {
