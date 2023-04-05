@@ -33,13 +33,13 @@ export class CheckProductPriceJob {
     console.info(`Checking %s product...`, products.length);
 
     await Promise.all(
-      products.map((product) => this.checkCurrentPrice(product)),
+      products.map((product) => this.#checkCurrentPrice(product)),
     );
 
     console.info(`Finito.`);
   }
 
-  async checkCurrentPrice(product: Product) {
+  async #checkCurrentPrice(product: Product) {
     const currentPrice = await this.parser.parsePrice(product.url);
 
     if (product.amount.equals(currentPrice.amount) === false) {
