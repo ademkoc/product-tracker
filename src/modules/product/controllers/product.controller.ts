@@ -43,6 +43,13 @@ export const show = async (
   return reply.send({ data: result.result });
 };
 
+export const showHistory = async (
+  req: FastifyRequest<{ Params: IdParamSchemaType }>,
+  reply: FastifyReply,
+): Promise<void> => {
+  return reply.send({});
+};
+
 export const update = async (
   req: FastifyRequest<{ Params: IdParamSchemaType }>,
   reply: FastifyReply,

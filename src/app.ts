@@ -12,6 +12,7 @@ export async function build() {
 
   await server.register(AutoLoad, {
     dir: `${__dirname}/modules`,
+    dirNameRoutePrefix: false,
     matchFilter: /.*route(\.ts|\.js|\.cjs|\.mjs)$/,
   });
 
