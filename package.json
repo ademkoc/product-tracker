@@ -1,14 +1,14 @@
 {
   "name": "product-tracker",
   "version": "1.0.0",
-  "engines": {
-    "node": ">=18"
-  },
   "scripts": {
     "build": "tsc",
-    "start:dev": "ts-node src/server.ts",
-    "start:dev:watch": "ts-node-dev src/server.ts",
-    "test": "vitest",
+    "start:dev": "cross-env NODE_ENV=development ts-node -r dotenv/config src/server.ts",
+    "start:dev:watch": "cross-env NODE_ENV=development ts-node-dev -r dotenv/config src/server.ts",
+    "start:prod": "tsc && cross-env NODE_ENV=production node dist/src/server.js",
+    "test": "cross-env DATABASE_URL=file:../test.db vitest --run",
+    "test:watch": "cross-env DATABASE_URL=file:../test.db vitest",
+    "test:migrate": "cross-env DATABASE_URL=file:../test.db npx prisma migrate reset",
     "prepare": "husky install"
   },
   "keywords": [],
@@ -22,6 +22,7 @@
     "@prisma/client": "^4.12.0",
     "@sinclair/typebox": "^0.26.8",
     "camelcase": "^6.3.0",
+    "dotenv": "^16.0.3",
     "json-schema-faker": "^0.5.0-rcv.46",
     "luxon": "^3.3.0",
     "muninn": "^0.17.0",
@@ -33,6 +34,7 @@
   "devDependencies": {
     "@types/luxon": "^3.2.0",
     "@types/node": "^18.15.11",
+    "cross-env": "^7.0.3",
     "husky": "^8.0.3",
     "prisma": "^4.12.0",
     "ts-node": "^10.9.1",

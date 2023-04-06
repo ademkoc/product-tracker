@@ -68,4 +68,5 @@ typings/
 /scripts/keys/
 
 # sqlite
-dev.db
+*.db
+*.db-journal
