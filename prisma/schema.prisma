@@ -18,6 +18,7 @@ model Product {
   currency      String
   lastCheckedAt DateTime
   images        ProductImage[]
+  history       PriceHistory[]
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
 }
@@ -28,11 +29,13 @@ model PriceHistory {
   amount    Decimal
   currency  String
   createdAt DateTime @default(now())
+  Product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
 
 model ProductImage {
-  id        Int     @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   productId Int
   url       String
-  Product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  Product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
