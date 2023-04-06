@@ -14,7 +14,7 @@ export class ProductService {
 
   async getProducts() {
     const products = await this.prismaService.product.findMany({
-      include: { images: true },
+      include: { images: true, history: true },
     });
 
     return products;
@@ -49,7 +49,7 @@ export class ProductService {
   async getProduct(id: number): Promise<Either<'NOT_FOUND', ProductWithImages>> {
     const product = await this.prismaService.product.findFirst({
       where: { id },
-      include: { images: true },
+      include: { images: true, history: true },
     });
 
     if (!product) {
