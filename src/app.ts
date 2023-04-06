@@ -5,7 +5,7 @@ import SwaggerUI from '@fastify/swagger-ui';
 import Fastify from 'fastify';
 
 export async function build() {
-  const server = Fastify();
+  const server = Fastify({ logger: {} });
 
   await server.register(Swagger, { openapi: {} });
   await server.register(SwaggerUI);
