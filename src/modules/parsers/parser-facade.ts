@@ -1,6 +1,8 @@
-import { IParser } from './abstract-parser';
+import type { ProductSchemaType } from 'src/schemas';
+
+import type { IParser } from './abstract-parser';
+
 import { ColinsParser, MaviParser } from '.';
-import { ProductSchemaType } from 'src/schemas';
 
 export class ParserFacade {
   private parsers: Map<string, IParser>;

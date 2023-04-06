@@ -1,9 +1,9 @@
 import { PrismaClient } from '@prisma/client';
 import type { FastifyReply, FastifyRequest } from 'fastify';
+import type { CreateProductSchemaType, IdParamSchemaType } from 'src/schemas';
 
-import { CreateProductSchemaType, IdParamSchemaType } from 'src/schemas';
-import { ProductService } from '../services/product.service';
 import { ParserFacade } from '../../parsers';
+import { ProductService } from '../services/product.service';
 
 const prismaService = new PrismaClient();
 const productService = new ProductService({ prismaService });
@@ -11,7 +11,7 @@ const productService = new ProductService({ prismaService });
 export const index = async (req: FastifyRequest, reply: FastifyReply): Promise<void> => {
   const data = await productService.getProducts();
 
-  reply.send({ data });
+  return reply.send({ data });
 };
 
 export const create = async (
@@ -25,7 +25,7 @@ export const create = async (
 
   const product = await productService.createProduct(data);
 
-  reply.send({ data: product });
+  return reply.send({ data: product });
 };
 
 export const show = async (
@@ -40,7 +40,7 @@ export const show = async (
     throw new Error('Product not found');
   }
 
-  reply.send({ data: result.result });
+  return reply.send({ data: result.result });
 };
 
 export const update = async (

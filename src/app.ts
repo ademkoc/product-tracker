@@ -1,15 +1,16 @@
-import Fastify from 'fastify';
+// eslint-disable-next-line import/default
 import AutoLoad from '@fastify/autoload';
 import Swagger from '@fastify/swagger';
 import SwaggerUI from '@fastify/swagger-ui';
+import Fastify from 'fastify';
 
-export function build() {
+export async function build() {
   const server = Fastify();
 
-  server.register(Swagger, { openapi: {} });
-  server.register(SwaggerUI);
+  await server.register(Swagger, { openapi: {} });
+  await server.register(SwaggerUI);
 
-  server.register(AutoLoad, {
+  await server.register(AutoLoad, {
     dir: `${__dirname}/modules`,
     matchFilter: /.*route(\.ts|\.js|\.cjs|\.mjs)$/,
   });

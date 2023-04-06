@@ -1,9 +1,9 @@
+import type { PrismaClient, Product } from '@prisma/client';
 import { DateTime } from 'luxon';
-import { PrismaClient, Product } from '@prisma/client';
+import type { PushNotificationService } from 'src/modules/notification/push/push-notification.service';
+import type { NotifyOptions } from 'src/modules/notification/push/push-notification.types';
 
-import { ColinsParser } from '../../parsers';
-import { PushNotificationService } from 'src/modules/notification/push/push-notification.service';
-import { NotifyOptions } from 'src/modules/notification/push/push-notification.types';
+import type { ColinsParser } from '../../parsers';
 
 export class CheckProductPriceJob {
   private readonly parser: ColinsParser;
@@ -11,8 +11,11 @@ export class CheckProductPriceJob {
   private readonly notificationService: PushNotificationService;
 
   public constructor(opts: any) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     this.prismaService = opts.prismaService;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     this.parser = opts.parser;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     this.notificationService = opts.notificationService;
   }
 
@@ -53,12 +56,14 @@ export class CheckProductPriceJob {
     if (currentPrice.amount.lessThan(product.amount)) {
       const notificationOptions = {
         title: unescape(encodeURIComponent('Fiyat Düştü!')),
-        message: `${product.title} ürününün fiyatı ${currentPrice.amount} olarak güncellendi.`,
+        message: `${
+          product.title
+        } ürününün fiyatı ${currentPrice.amount.toString()} olarak güncellendi.`,
         tags: ['zap', 'tada'],
         priority: 'default',
       } as NotifyOptions;
 
-      this.notificationService.notify(notificationOptions);
+      await this.notificationService.notify(notificationOptions);
     }
 
     await this.prismaService.product.update({

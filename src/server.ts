@@ -1,5 +1,8 @@
 import { build } from './app';
 
-const server = build();
+async function server() {
+  const server = await build();
+  await server.listen({ port: 3000 });
+}
 
-server.listen({ port: 3000 });
+void server();

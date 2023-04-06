@@ -1,11 +1,11 @@
-import { FastifyPluginAsyncTypebox } from '@fastify/type-provider-typebox';
+import { type FastifyPluginCallbackTypebox } from '@fastify/type-provider-typebox';
 
-import * as ProductController from '../controllers/product.controller';
 import { CreateProductSchema, IdParamSchema } from '../../../schemas/product';
+import * as ProductController from '../controllers/product.controller';
 
 export const autoPrefix = '/products';
 
-export const plugin: FastifyPluginAsyncTypebox = async function (fastify, opts) {
+export const plugin: FastifyPluginCallbackTypebox = function (fastify, opts, next) {
   fastify.get(
     '/',
     {
@@ -59,6 +59,8 @@ export const plugin: FastifyPluginAsyncTypebox = async function (fastify, opts) 
     },
     ProductController.destroy,
   );
+
+  next();
 };
 
 export default plugin;

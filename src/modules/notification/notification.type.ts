@@ -1,5 +1,5 @@
-import { NotifyOptions } from './push/push-notification.types';
+import type { NotifyOptions } from './push/push-notification.types';
 
 export interface INotificationService {
-  notify: (opts: NotifyOptions) => {};
+  notify: (opts: NotifyOptions) => object;
 }

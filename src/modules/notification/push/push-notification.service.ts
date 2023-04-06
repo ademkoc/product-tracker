@@ -1,12 +1,15 @@
 import { fetch } from 'undici';
-import { NotifyOptions } from './push-notification.types';
-import { INotificationService } from '../notification.type';
+
+import type { INotificationService } from '../notification.type';
+
+import type { NotifyOptions } from './push-notification.types';
 
 export class PushNotificationService implements INotificationService {
+  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
   public static URL = `${process.env.NOTIFICATION_SERVICE_URL}/${process.env.NOTIFICATION_TOPIC}`;
 
   async notify(opts: NotifyOptions) {
-    let options = {
+    const options = {
       method: 'POST',
       body: opts.message,
       headers: {

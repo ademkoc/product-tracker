@@ -1,5 +1,5 @@
-import { Prisma } from '@prisma/client';
-import { Schema } from 'muninn';
+import type { Prisma } from '@prisma/client';
+import type { Schema } from 'muninn';
 
 export type ParserConfig = {
   selector: string | Schema;

@@ -1,8 +1,9 @@
-import { fetch } from 'undici';
+import type { Schema } from 'muninn';
 import { parse } from 'muninn';
+import type { ProductSchemaType } from 'src/schemas';
+import { fetch } from 'undici';
 
-import { ParserConfigs, Price } from './parser.types';
-import { ProductSchemaType } from 'src/schemas';
+import type { ParserConfigs, Price } from './parser.types';
 
 export type IParser = {
   parseContent: (url: string) => Promise<ProductSchemaType>;
@@ -26,7 +27,7 @@ export abstract class AbstractParser {
     return html;
   }
 
-  #decodeSource(html: string, config: any) {
+  #decodeSource(html: string, config: Schema) {
     const result = parse(html, config);
 
     return result;
