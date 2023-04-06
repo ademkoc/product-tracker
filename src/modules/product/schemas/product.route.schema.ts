@@ -20,13 +20,6 @@ export const POST_PRODUCT_CREATE = {
   },
 };
 
-export const GET_PRODUCT_SHOW_HISTORY = {
-  schema: {
-    tags: ['Product'],
-    params: IdParamSchema,
-  },
-};
-
 export const PUT_PRODUCT_UPDATE = {
   schema: {
     tags: ['Product'],
