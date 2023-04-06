@@ -1,52 +1,64 @@
-import { FastifyPluginAsyncTypebox } from "@fastify/type-provider-typebox";
+import { FastifyPluginAsyncTypebox } from '@fastify/type-provider-typebox';
 
-import * as ProductController from "../controllers/product.controller";
-import { CreateProductSchema, IdParamSchema } from "../../../schemas/product";
+import * as ProductController from '../controllers/product.controller';
+import { CreateProductSchema, IdParamSchema } from '../../../schemas/product';
 
-export const autoPrefix = "/products";
+export const autoPrefix = '/products';
 
-export const plugin: FastifyPluginAsyncTypebox = async function (
-  fastify,
-  opts,
-) {
-  fastify
-    .get("/", {
+export const plugin: FastifyPluginAsyncTypebox = async function (fastify, opts) {
+  fastify.get(
+    '/',
+    {
       schema: {
-        tags: ["Product"],
+        tags: ['Product'],
       },
-    }, ProductController.index);
+    },
+    ProductController.index,
+  );
 
-  fastify
-    .post("/", {
+  fastify.post(
+    '/',
+    {
       schema: {
-        tags: ["Product"],
+        tags: ['Product'],
         body: CreateProductSchema,
       },
-    }, ProductController.create);
+    },
+    ProductController.create,
+  );
 
-  fastify
-    .get("/:id", {
+  fastify.get(
+    '/:id',
+    {
       schema: {
-        tags: ["Product"],
+        tags: ['Product'],
         params: IdParamSchema,
       },
-    }, ProductController.show);
+    },
+    ProductController.show,
+  );
 
-  fastify
-    .put("/:id", {
+  fastify.put(
+    '/:id',
+    {
       schema: {
-        tags: ["Product"],
+        tags: ['Product'],
         params: IdParamSchema,
       },
-    }, ProductController.update);
+    },
+    ProductController.update,
+  );
 
-  fastify
-    .delete("/:id", {
+  fastify.delete(
+    '/:id',
+    {
       schema: {
-        tags: ["Product"],
+        tags: ['Product'],
         params: IdParamSchema,
       },
-    }, ProductController.destroy);
+    },
+    ProductController.destroy,
+  );
 };
 
 export default plugin;

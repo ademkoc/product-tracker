@@ -1,4 +1,4 @@
-import { build } from "./app";
+import { build } from './app';
 
 const server = build();
 

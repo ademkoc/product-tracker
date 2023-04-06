@@ -1,1 +1,1 @@
-export { ColinsParser } from "./colins.parser";
+export { ColinsParser } from './colins.parser';

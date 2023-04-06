@@ -1,7 +1,7 @@
-import Fastify from "fastify";
-import AutoLoad from "@fastify/autoload";
-import Swagger from "@fastify/swagger";
-import SwaggerUI from "@fastify/swagger-ui";
+import Fastify from 'fastify';
+import AutoLoad from '@fastify/autoload';
+import Swagger from '@fastify/swagger';
+import SwaggerUI from '@fastify/swagger-ui';
 
 export function build() {
   const server = Fastify();

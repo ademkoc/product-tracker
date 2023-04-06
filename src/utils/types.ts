@@ -1,10 +1,10 @@
 type Left<T> = {
-    error: T;
-    result?: never;
+  error: T;
+  result?: never;
 };
 type Right<U> = {
-    error?: never;
-    result: U;
+  error?: never;
+  result: U;
 };
 /**
  * Either is a functional programming type which is used to communicate errors happening in potentially recoverable scenarios.

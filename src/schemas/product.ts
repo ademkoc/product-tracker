@@ -1,16 +1,17 @@
-import { Static, Type } from "@sinclair/typebox";
-import { Currency } from "../constants";
+import { type Static, Type } from '@sinclair/typebox';
+
+import { Currency } from '../constants';
 
 export const ProductSchema = Type.Object({
-  url: Type.String({ format: "uri" }),
+  url: Type.String({ format: 'uri' }),
   title: Type.String(),
   amount: Type.Number(),
   currency: Type.Enum(Currency),
-  images: Type.Array(Type.String({ format: "uri" })),
+  images: Type.Array(Type.String({ format: 'uri' })),
 });
 
 export const CreateProductSchema = Type.Object({
-  url: Type.String({ format: "uri" }),
+  url: Type.String({ format: 'uri' }),
 });
 
 export const IdParamSchema = Type.Object({

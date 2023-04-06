@@ -1,8 +1,8 @@
-import { fetch } from "undici";
-import { parse } from "muninn";
+import { fetch } from 'undici';
+import { parse } from 'muninn';
 
-import { ParserConfigs, Price } from "./parser.types";
-import { ProductSchemaType } from "src/schemas";
+import { ParserConfigs, Price } from './parser.types';
+import { ProductSchemaType } from 'src/schemas';
 
 export type IParser = {
   parseContent: (url: string) => Promise<ProductSchemaType>;

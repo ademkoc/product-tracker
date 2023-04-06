@@ -1,16 +1,16 @@
-import { Prisma, PrismaClient } from "@prisma/client";
-import { mock, mockClear, mockDeep } from "vitest-mock-extended";
-import { afterAll, beforeEach, describe, expect, it } from "vitest";
+import { Prisma, PrismaClient } from '@prisma/client';
+import { mock, mockClear, mockDeep } from 'vitest-mock-extended';
+import { afterAll, beforeEach, describe, expect, it } from 'vitest';
 
-import { ColinsParser } from "../../src/modules/parsers";
-import { CheckProductPriceJob } from "../../src/modules/product/jobs/check-product-price.job";
-import { PushNotificationService } from "../../src/modules/notification/push/push-notification.service";
+import { ColinsParser } from '../../src/modules/parsers';
+import { CheckProductPriceJob } from '../../src/modules/product/jobs/check-product-price.job';
+import { PushNotificationService } from '../../src/modules/notification/push/push-notification.service';
 
 const mockedParser = mockDeep<ColinsParser>();
 const mockedPrismaService = mockDeep<PrismaClient>();
 const mockedPushNotificationService = mock<PushNotificationService>();
 
-describe("CheckProductPriceJob", () => {
+describe('CheckProductPriceJob', () => {
   let sut: CheckProductPriceJob;
 
   beforeEach(() => {
@@ -27,14 +27,13 @@ describe("CheckProductPriceJob", () => {
     mockClear(mockedPushNotificationService);
   });
 
-  it("should notify when the price drops", async () => {
+  it('should notify when the price drops', async () => {
     const mockProduct = {
       id: 1,
-      url:
-        "https://www.colins.com.tr/p/regular-fit-dugmeli-cepli-bej-erkek-mont-39024",
-      title: "Regular Fit Düğmeli Cepli Bej Erkek Mont",
+      url: 'https://www.colins.com.tr/p/regular-fit-dugmeli-cepli-bej-erkek-mont-39024',
+      title: 'Regular Fit Düğmeli Cepli Bej Erkek Mont',
       amount: new Prisma.Decimal(100),
-      currency: "TL",
+      currency: 'TL',
       lastCheckedAt: new Date(),
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -43,7 +42,7 @@ describe("CheckProductPriceJob", () => {
     mockedPrismaService.product.findMany.mockResolvedValue([mockProduct]);
     mockedParser.parsePrice.mockResolvedValue({
       amount: new Prisma.Decimal(99.9),
-      currency: "TL",
+      currency: 'TL',
     });
 
     await sut.process();

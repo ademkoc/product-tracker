@@ -1,10 +1,10 @@
-import { TestContext } from "vitest";
-import { readFile } from "node:fs/promises";
-import { MockAgent, MockPool, setGlobalDispatcher } from "undici";
+import { TestContext } from 'vitest';
+import { readFile } from 'node:fs/promises';
+import { MockAgent, MockPool, setGlobalDispatcher } from 'undici';
 
 export interface LocalTestContext {
   mock: MockAgent;
-  intercept: InstanceType<typeof MockPool>["intercept"];
+  intercept: InstanceType<typeof MockPool>['intercept'];
 }
 
 type Context = TestContext & LocalTestContext;
@@ -33,10 +33,12 @@ export function createTestContext(origin: string, mockDataPath: string) {
     async setupProductMock(context: Context) {
       const mockResponse = await readFile(mockDataPath);
 
-      context.intercept({
-        path: new RegExp("/p/(.*?)"),
-        method: "GET",
-      }).reply(200, mockResponse.toString());
+      context
+        .intercept({
+          path: new RegExp('/p/(.*?)'),
+          method: 'GET',
+        })
+        .reply(200, mockResponse.toString());
     },
   };
 }

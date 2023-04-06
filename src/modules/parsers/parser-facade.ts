@@ -1,6 +1,6 @@
-import { IParser } from "./abstract-parser";
-import { ColinsParser, MaviParser } from ".";
-import { ProductSchemaType } from "src/schemas";
+import { IParser } from './abstract-parser';
+import { ColinsParser, MaviParser } from '.';
+import { ProductSchemaType } from 'src/schemas';
 
 export class ParserFacade {
   private parsers: Map<string, IParser>;
@@ -14,10 +14,7 @@ export class ParserFacade {
   async parse(url: string): Promise<ProductSchemaType> {
     const { hostname } = new URL(url);
 
-    const key = [
-      ColinsParser.NAME,
-      MaviParser.NAME,
-    ].find((name) => hostname.match(name));
+    const key = [ColinsParser.NAME, MaviParser.NAME].find((name) => hostname.match(name));
 
     const parser = this.parsers.get(key!);
 

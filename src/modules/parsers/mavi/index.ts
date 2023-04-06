@@ -1,1 +1,1 @@
-export { MaviParser } from "./mavi.parser";
+export { MaviParser } from './mavi.parser';

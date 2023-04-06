@@ -1,9 +1,9 @@
-import { SimpleIntervalJob, Task, ToadScheduler } from "toad-scheduler";
+import { SimpleIntervalJob, Task, ToadScheduler } from 'toad-scheduler';
 
-import { CheckProductPriceJob } from "./product";
-import { PrismaClient } from "@prisma/client";
-import { ColinsParser } from "./parsers";
-import { PushNotificationService } from "./notification/push/push-notification.service";
+import { CheckProductPriceJob } from './product';
+import { PrismaClient } from '@prisma/client';
+import { ColinsParser } from './parsers';
+import { PushNotificationService } from './notification/push/push-notification.service';
 
 export function registerJobs() {
   const prismaService = new PrismaClient();
@@ -12,14 +12,12 @@ export function registerJobs() {
 
   const job = new SimpleIntervalJob(
     { minutes: 1 },
-    new Task(
-      "CheckProductPriceJob",
-      () =>
-        new CheckProductPriceJob({
-          prismaService,
-          notificationService,
-          parser,
-        }).process(),
+    new Task('CheckProductPriceJob', () =>
+      new CheckProductPriceJob({
+        prismaService,
+        notificationService,
+        parser,
+      }).process(),
     ),
   );
 

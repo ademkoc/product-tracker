@@ -1,3 +1,3 @@
 export const Currency = {
-  TL: "TL",
+  TL: 'TL',
 };

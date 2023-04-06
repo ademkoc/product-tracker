@@ -1,14 +1,14 @@
-import { PrismaClient } from "@prisma/client";
-import { JSONSchemaFaker } from "json-schema-faker";
-import { afterAll, beforeEach, describe, expect, it } from "vitest";
+import { PrismaClient } from '@prisma/client';
+import { JSONSchemaFaker } from 'json-schema-faker';
+import { afterAll, beforeEach, describe, expect, it } from 'vitest';
 
-import { ProductSchema } from "../../src/schemas";
-import { cleanTables, DB_MODEL } from "./db-cleaner";
-import { ProductService } from "../../src/modules/product";
+import { ProductSchema } from '../../src/schemas';
+import { cleanTables, DB_MODEL } from './db-cleaner';
+import { ProductService } from '../../src/modules/product';
 
 const prismaService = new PrismaClient();
 
-describe("ProductService", () => {
+describe('ProductService', () => {
   let sut: ProductService;
 
   beforeEach(async () => {
@@ -21,12 +21,12 @@ describe("ProductService", () => {
     prismaService.$disconnect();
   });
 
-  it("is defined", () => {
+  it('is defined', () => {
     expect(sut).toBeDefined();
   });
 
-  describe("createProduct()", () => {
-    it("should create product", async () => {
+  describe('createProduct()', () => {
+    it('should create product', async () => {
       const createProductDTO = JSONSchemaFaker.generate(ProductSchema);
 
       const product = await sut.createProduct(createProductDTO);
@@ -35,8 +35,8 @@ describe("ProductService", () => {
     });
   });
 
-  describe("getProduct()", () => {
-    it("should show product with images", async () => {
+  describe('getProduct()', () => {
+    it('should show product with images', async () => {
       const createProductDTO = JSONSchemaFaker.generate(ProductSchema);
       const createdProduct = await sut.createProduct(createProductDTO);
 
@@ -48,7 +48,7 @@ describe("ProductService", () => {
           {
             id: expect.any(Number),
             productId: expect.any(Number),
-            url: expect.stringContaining("http"),
+            url: expect.stringContaining('http'),
           },
         ]),
       });

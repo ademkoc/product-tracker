@@ -1,35 +1,35 @@
-import { ParserConfigs } from "../parser.types";
-import { amountTransformer, currencyTransformer } from "../common";
+import { ParserConfigs } from '../parser.types';
+import { amountTransformer, currencyTransformer } from '../common';
 
 export const maviConfig: ParserConfigs = {
   content: {
-    selector: ".product__wrapper",
+    selector: '.product__wrapper',
     schema: {
-      title: ".product__title",
+      title: '.product__title',
       amount: {
-        selector: ".price",
+        selector: '.price',
         transform: amountTransformer,
       },
       currency: {
-        selector: ".price",
+        selector: '.price',
         transform: currencyTransformer,
       },
       images: {
-        "selector": "#swiper-wrapper img | array",
-        "attr": "src",
-        transform: (image: any) => image.replace("//", "https://"),
+        selector: '#swiper-wrapper img | array',
+        attr: 'src',
+        transform: (image: any) => image.replace('//', 'https://'),
       },
     },
   },
   price: {
-    selector: ".product__product-pricing",
+    selector: '.product__product-pricing',
     schema: {
       amount: {
-        selector: ".price",
+        selector: '.price',
         transform: amountTransformer,
       },
       currency: {
-        selector: ".price",
+        selector: '.price',
         transform: currencyTransformer,
       },
     },

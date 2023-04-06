@@ -5,4 +5,4 @@ export {
   IdParamSchemaType,
   ProductSchema,
   ProductSchemaType,
-} from "./product";
+} from './product';

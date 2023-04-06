@@ -1,8 +1,8 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from '@prisma/client';
 
-import { Either } from "src/utils";
-import { ProductWithImages } from "../product.types";
-import { ProductSchemaType } from "src/schemas/product";
+import { Either } from 'src/utils';
+import { ProductWithImages } from '../product.types';
+import { ProductSchemaType } from 'src/schemas/product';
 
 export class ProductService {
   private readonly prismaService: PrismaClient;
@@ -38,23 +38,21 @@ export class ProductService {
     // PS: createMany is not supported for SQLite
     await Promise.all(
       productImages.map((productImg) =>
-        this.prismaService.productImage.create({ data: productImg })
+        this.prismaService.productImage.create({ data: productImg }),
       ),
     );
 
     return product;
   }
 
-  async getProduct(
-    id: number,
-  ): Promise<Either<"NOT_FOUND", ProductWithImages>> {
+  async getProduct(id: number): Promise<Either<'NOT_FOUND', ProductWithImages>> {
     const product = await this.prismaService.product.findFirst({
       where: { id },
       include: { images: true },
     });
 
     if (!product) {
-      return { error: "NOT_FOUND" };
+      return { error: 'NOT_FOUND' };
     }
 
     return { result: product };

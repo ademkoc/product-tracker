@@ -1,9 +1,9 @@
-import { DateTime } from "luxon";
-import { PrismaClient, Product } from "@prisma/client";
+import { DateTime } from 'luxon';
+import { PrismaClient, Product } from '@prisma/client';
 
-import { ColinsParser } from "../../parsers";
-import { PushNotificationService } from "src/modules/notification/push/push-notification.service";
-import { NotifyOptions } from "src/modules/notification/push/push-notification.types";
+import { ColinsParser } from '../../parsers';
+import { PushNotificationService } from 'src/modules/notification/push/push-notification.service';
+import { NotifyOptions } from 'src/modules/notification/push/push-notification.types';
 
 export class CheckProductPriceJob {
   private readonly parser: ColinsParser;
@@ -26,15 +26,13 @@ export class CheckProductPriceJob {
     });
 
     if (products.length < 1) {
-      console.info("Nothing to check.");
+      console.info('Nothing to check.');
       return;
     }
 
     console.info(`Checking %s product...`, products.length);
 
-    await Promise.all(
-      products.map((product) => this.#checkCurrentPrice(product)),
-    );
+    await Promise.all(products.map((product) => this.#checkCurrentPrice(product)));
 
     console.info(`Finito.`);
   }
@@ -54,11 +52,10 @@ export class CheckProductPriceJob {
 
     if (currentPrice.amount.lessThan(product.amount)) {
       const notificationOptions = {
-        title: unescape(encodeURIComponent("Fiyat Düştü!")),
-        message:
-          `${product.title} ürününün fiyatı ${currentPrice.amount} olarak güncellendi.`,
-        tags: ["zap", "tada"],
-        priority: "default",
+        title: unescape(encodeURIComponent('Fiyat Düştü!')),
+        message: `${product.title} ürününün fiyatı ${currentPrice.amount} olarak güncellendi.`,
+        tags: ['zap', 'tada'],
+        priority: 'default',
       } as NotifyOptions;
 
       this.notificationService.notify(notificationOptions);
