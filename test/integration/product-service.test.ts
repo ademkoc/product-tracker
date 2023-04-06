@@ -1,8 +1,8 @@
 import { PrismaClient } from '@prisma/client';
-import { JSONSchemaFaker } from 'json-schema-faker';
+import { JSONSchemaFaker as jsf } from 'json-schema-faker';
 import { afterAll, beforeEach, describe, expect, it } from 'vitest';
 
-import { ProductSchema } from '../../src/schemas';
+import { ProductSchema, ProductSchemaType } from '../../src/schemas';
 import { cleanTables, DB_MODEL } from './db-cleaner';
 import { ProductService } from '../../src/modules/product';
 
@@ -27,9 +27,8 @@ describe('ProductService', () => {
 
   describe('createProduct()', () => {
     it('should create product', async () => {
-      const createProductDTO = JSONSchemaFaker.generate(ProductSchema);
-
-      const product = await sut.createProduct(createProductDTO);
+      const createProductDTO = jsf.generate(ProductSchema);
+      const product = await sut.createProduct(createProductDTO as ProductSchemaType);
 
       expect(product).toMatchObject({ id: expect.any(Number) });
     });
@@ -37,19 +36,19 @@ describe('ProductService', () => {
 
   describe('getProduct()', () => {
     it('should show product with images', async () => {
-      const createProductDTO = JSONSchemaFaker.generate(ProductSchema);
-      const createdProduct = await sut.createProduct(createProductDTO);
+      const createProductDTO = jsf.generate(ProductSchema);
+      const createdProduct = await sut.createProduct(createProductDTO as ProductSchemaType);
 
       const { result } = await sut.getProduct(createdProduct.id);
 
       expect(result).toMatchObject({
         id: expect.any(Number),
         images: expect.arrayContaining([
-          {
+          expect.objectContaining({
             id: expect.any(Number),
             productId: expect.any(Number),
             url: expect.stringContaining('http'),
-          },
+          }),
         ]),
       });
     });

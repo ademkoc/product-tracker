@@ -4,7 +4,7 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
 import { MaviParser } from '../../src/modules/parsers/mavi/mavi.parser';
 import { createTestContext, type LocalTestContext } from './_setup';
-import { Currency } from 'src/constants';
+import { Currency } from '../../src/constants';
 
 const testContext = createTestContext(
   'https://www.mavi.com',
