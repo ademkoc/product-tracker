@@ -11,7 +11,7 @@ export function registerJobs() {
   const notificationService = new PushNotificationService();
 
   const job = new SimpleIntervalJob(
-    { minutes: 1 },
+    { minutes: 10 },
     new Task('CheckProductPriceJob', () => {
       const job = new CheckProductPriceJob({
         prismaService,
