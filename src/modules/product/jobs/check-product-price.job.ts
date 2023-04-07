@@ -61,6 +61,7 @@ export class CheckProductPriceJob {
         } ürününün fiyatı ${currentPrice.amount.toString()} olarak güncellendi.`,
         tags: ['zap', 'tada'],
         priority: 'default',
+        actionLink: product.url,
       } as NotifyOptions;
 
       await this.notificationService.notify(notificationOptions);
