@@ -4,7 +4,7 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
 import { CheckProductPriceJob } from '../../src/modules/product/jobs/check-product-price.job';
 import { PushNotificationService } from '../../src/modules/notification/push/push-notification.service';
-import { IParser } from 'src/modules/parsers/abstract-parser';
+import type { IParser } from 'src/modules/parsers';
 
 const mockedParser = mock<IParser>();
 const mockedPrismaService = mockDeep<PrismaClient>();
@@ -17,7 +17,7 @@ describe('CheckProductPriceJob', () => {
     sut = new CheckProductPriceJob({
       parser: mockedParser,
       prismaService: mockedPrismaService,
-      notificationService: mockedPushNotificationService,
+      pushNotificationService: mockedPushNotificationService,
     });
   });
 

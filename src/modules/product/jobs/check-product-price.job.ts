@@ -1,21 +1,21 @@
 import type { PrismaClient, Product } from '@prisma/client';
 import { DateTime } from 'luxon';
+import type { ICradle } from 'src/infrastructure';
 import type { PushNotificationService } from 'src/modules/notification/push/push-notification.service';
 import type { NotifyOptions } from 'src/modules/notification/push/push-notification.types';
-import type { IParser } from 'src/modules/parsers/abstract-parser';
+import type { IParser } from 'src/modules/parsers';
+
+type ConstructorOptions = Pick<ICradle, 'parser' | 'prismaService' | 'pushNotificationService'>;
 
 export class CheckProductPriceJob {
   private readonly parser: IParser;
   private readonly prismaService: PrismaClient;
   private readonly notificationService: PushNotificationService;
 
-  public constructor(opts: any) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    this.prismaService = opts.prismaService;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  public constructor(opts: ConstructorOptions) {
     this.parser = opts.parser;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    this.notificationService = opts.notificationService;
+    this.prismaService = opts.prismaService;
+    this.notificationService = opts.pushNotificationService;
   }
 
   async process() {
