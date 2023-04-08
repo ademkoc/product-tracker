@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/default
-import AutoLoad from '@fastify/autoload';
+import { fastifyAutoload } from '@fastify/autoload';
 import { fastifyAwilixPlugin } from '@fastify/awilix';
 import Swagger from '@fastify/swagger';
 import SwaggerUI from '@fastify/swagger-ui';
@@ -12,7 +11,7 @@ export async function build() {
   await server.register(SwaggerUI);
   await server.register(fastifyAwilixPlugin, { disposeOnClose: true, disposeOnResponse: true });
 
-  await server.register(AutoLoad, {
+  await server.register(fastifyAutoload, {
     dir: `${__dirname}/modules`,
     dirNameRoutePrefix: false,
     matchFilter: /.*route(\.ts|\.js|\.cjs|\.mjs)$/,
