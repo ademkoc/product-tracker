@@ -20,7 +20,10 @@ describe('ParserFacade', () => {
   let sut: ParserFacade;
 
   beforeEach(() => {
-    sut = new ParserFacade([new ColinsParser(), new MaviParser()]);
+    sut = new ParserFacade({
+      colinsParser: new ColinsParser(),
+      maviParser: new MaviParser(),
+    });
   });
 
   it('is defined', () => {

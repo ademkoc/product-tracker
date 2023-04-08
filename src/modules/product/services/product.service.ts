@@ -1,14 +1,16 @@
 import { type PrismaClient } from '@prisma/client';
 
+import { type ICradle } from '../../../infrastructure';
 import { type ProductSchemaType } from '../../../schemas/product';
 import { type Either } from '../../../utils';
 import { type ProductWithImages } from '../product.types';
 
+type ConstructorOptions = Pick<ICradle, 'prismaService'>;
+
 export class ProductService {
   private readonly prismaService: PrismaClient;
 
-  public constructor(opts: any) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  public constructor(opts: ConstructorOptions) {
     this.prismaService = opts.prismaService;
   }
 

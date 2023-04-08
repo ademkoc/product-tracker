@@ -1,12 +1,16 @@
+import type { ICradle } from 'src/infrastructure';
 import type { IParser } from 'src/modules/parsers';
 
-export class ParserFacade {
+type ConstructorOptions = Pick<ICradle, 'colinsParser' | 'maviParser'>;
+
+export class ParserFacade implements IParser {
+  public name = 'ParserFacade';
   private parsers: Map<string, IParser>;
 
-  public constructor(parsers: IParser[]) {
+  public constructor({ colinsParser, maviParser }: ConstructorOptions) {
     this.parsers = new Map();
-
-    parsers.forEach((parser) => this.parsers.set(parser.name, parser));
+    this.parsers.set(colinsParser.name, colinsParser);
+    this.parsers.set(maviParser.name, maviParser);
   }
 
   #getParser(url: string) {
