@@ -51,9 +51,3 @@ curl --request POST \
 	}
 }
 ```
-
-## ToDo
-
-- [ ] IoC
-- [ ] Fix no-typesafe rules
-- [ ] i18n
