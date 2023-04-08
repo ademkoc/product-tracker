@@ -12,8 +12,10 @@ export const create = async (
   reply: FastifyReply,
 ): Promise<void> => {
   const { url } = req.body;
+  const { parser, productService } = req.diScope.cradle;
 
-  const product = await req.diScope.cradle.parser.parseContent(url);
+  const data = await parser.parseContent(url);
+  const product = await productService.createProduct(data);
 
   return reply.send({ data: product });
 };
