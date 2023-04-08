@@ -35,7 +35,7 @@ export function createTestContext(origin: string, mockDataPath: string) {
 
       context
         .intercept({
-          path: new RegExp('/p/(.*?)'),
+          path: new RegExp('/(.*?)'),
           method: 'GET',
         })
         .reply(200, mockResponse.toString());

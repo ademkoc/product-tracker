@@ -10,6 +10,7 @@ export interface ICradle {
   parser: IParser;
   colinsParser: IParser;
   maviParser: IParser;
+  trendyolParser: IParser;
   checkProductPriceJob: CheckProductPriceJob;
   pushNotificationService: PushNotificationService;
 }

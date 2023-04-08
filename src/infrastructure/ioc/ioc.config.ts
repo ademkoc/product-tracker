@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client';
 import { Lifetime, asClass, asFunction } from 'awilix';
 
 import { PushNotificationService } from '../../modules/notification/push/push-notification.service';
-import { ColinsParser, MaviParser, ParserFacade } from '../../modules/parsers';
+import { ColinsParser, MaviParser, ParserFacade, TrendyolParser } from '../../modules/parsers';
 import { CheckProductPriceJob, ProductService } from '../../modules/product';
 
 export const SINGLETON_CONFIG = { lifetime: Lifetime.SINGLETON };
@@ -22,6 +22,7 @@ export function buildContainer() {
     parser: asClass(ParserFacade, SINGLETON_CONFIG),
     colinsParser: asClass(ColinsParser, SINGLETON_CONFIG),
     maviParser: asClass(MaviParser, SINGLETON_CONFIG),
+    trendyolParser: asClass(TrendyolParser, SINGLETON_CONFIG),
 
     // product module
     productService: asClass(ProductService),
