@@ -1,12 +1,12 @@
 import { Prisma, PrismaClient } from '@prisma/client';
-import { mock, mockClear, mockDeep } from 'vitest-mock-extended';
-import { afterAll, beforeEach, describe, expect, it } from 'vitest';
+import { mock, mockReset, mockDeep } from 'vitest-mock-extended';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
-import { ColinsParser } from '../../src/modules/parsers';
 import { CheckProductPriceJob } from '../../src/modules/product/jobs/check-product-price.job';
 import { PushNotificationService } from '../../src/modules/notification/push/push-notification.service';
+import { IParser } from 'src/modules/parsers/abstract-parser';
 
-const mockedParser = mockDeep<ColinsParser>();
+const mockedParser = mock<IParser>();
 const mockedPrismaService = mockDeep<PrismaClient>();
 const mockedPushNotificationService = mock<PushNotificationService>();
 
@@ -21,10 +21,10 @@ describe('CheckProductPriceJob', () => {
     });
   });
 
-  afterAll(() => {
-    mockClear(mockedParser);
-    mockClear(mockedPrismaService);
-    mockClear(mockedPushNotificationService);
+  afterEach(() => {
+    mockReset(mockedParser);
+    mockReset(mockedPrismaService);
+    mockReset(mockedPushNotificationService);
   });
 
   it('should notify when the price drops', async () => {

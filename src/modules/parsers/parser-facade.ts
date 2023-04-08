@@ -1,22 +1,18 @@
-import type { ProductSchemaType } from 'src/schemas';
-
 import type { IParser } from './abstract-parser';
-
-import { ColinsParser, MaviParser } from '.';
 
 export class ParserFacade {
   private parsers: Map<string, IParser>;
 
-  public constructor() {
+  public constructor(parsers: IParser[]) {
     this.parsers = new Map();
-    this.parsers.set(ColinsParser.NAME, new ColinsParser());
-    this.parsers.set(MaviParser.NAME, new MaviParser());
+
+    parsers.forEach((parser) => this.parsers.set(parser.name, parser));
   }
 
-  async parse(url: string): Promise<ProductSchemaType> {
+  #getParser(url: string) {
     const { hostname } = new URL(url);
 
-    const key = [ColinsParser.NAME, MaviParser.NAME].find((name) => hostname.match(name));
+    const key = Array.from(this.parsers.keys()).find((name) => hostname.match(name));
 
     const parser = this.parsers.get(key!);
 
@@ -24,6 +20,14 @@ export class ParserFacade {
       throw new Error(`Parser not found. URL: ${url}`);
     }
 
-    return parser.parseContent(url);
+    return parser;
+  }
+
+  parseContent(url: string) {
+    return this.#getParser(url).parseContent(url);
+  }
+
+  parsePrice(url: string) {
+    return this.#getParser(url).parsePrice(url);
   }
 }

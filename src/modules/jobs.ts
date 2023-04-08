@@ -2,12 +2,12 @@ import { PrismaClient } from '@prisma/client';
 import { SimpleIntervalJob, Task, ToadScheduler } from 'toad-scheduler';
 
 import { PushNotificationService } from './notification/push/push-notification.service';
-import { ColinsParser } from './parsers';
+import { ColinsParser, MaviParser, ParserFacade } from './parsers';
 import { CheckProductPriceJob } from './product';
 
 export function registerJobs() {
   const prismaService = new PrismaClient();
-  const parser = new ColinsParser();
+  const parser = new ParserFacade([new ColinsParser(), new MaviParser()]);
   const notificationService = new PushNotificationService();
 
   const job = new SimpleIntervalJob(

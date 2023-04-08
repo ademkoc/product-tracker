@@ -6,6 +6,7 @@ import { fetch } from 'undici';
 import type { ParserConfigs, Price } from './parser.types';
 
 export type IParser = {
+  name: string;
   parseContent: (url: string) => Promise<ProductSchemaType>;
   parsePrice: (url: string) => Promise<Price>;
 };

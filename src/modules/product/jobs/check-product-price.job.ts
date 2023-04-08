@@ -2,11 +2,10 @@ import type { PrismaClient, Product } from '@prisma/client';
 import { DateTime } from 'luxon';
 import type { PushNotificationService } from 'src/modules/notification/push/push-notification.service';
 import type { NotifyOptions } from 'src/modules/notification/push/push-notification.types';
-
-import type { ColinsParser } from '../../parsers';
+import type { IParser } from 'src/modules/parsers/abstract-parser';
 
 export class CheckProductPriceJob {
-  private readonly parser: ColinsParser;
+  private readonly parser: IParser;
   private readonly prismaService: PrismaClient;
   private readonly notificationService: PushNotificationService;
 
