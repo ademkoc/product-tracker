@@ -10,10 +10,11 @@ docker build -t product-tracker .
 
 ```shell
 docker run -i -t \
-    -e DATABASE_URL='file:/home/node/app/sample.db' \
+    -e DATABASE_URL='file:/home/node/app/prisma/sample.db' \
     -e NOTIFICATION_TOPIC='product_tracker' \
     -e NOTIFICATION_SERVICE_URL='https://ntfy.sh' \
     -p 3000:3000 \
+    -v tracker_db:/home/node/app/prisma \
     product-tracker
 ```
 
