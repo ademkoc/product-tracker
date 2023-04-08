@@ -1,4 +1,5 @@
-import type { IParser } from '../abstract-parser';
+import type { IParser } from 'src/modules/parsers';
+
 import { AbstractParser } from '../abstract-parser';
 
 import { colinsConfig } from './colins.parser.config';

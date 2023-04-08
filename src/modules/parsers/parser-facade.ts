@@ -1,4 +1,4 @@
-import type { IParser } from './abstract-parser';
+import type { IParser } from 'src/modules/parsers';
 
 export class ParserFacade {
   private parsers: Map<string, IParser>;
