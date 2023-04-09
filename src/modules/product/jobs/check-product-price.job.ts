@@ -11,6 +11,8 @@ type ConstructorOptions = Pick<
   'parser' | 'prismaService' | 'pushNotificationService' | 'logger'
 >;
 
+const PRODUCT_LAST_CHECK_IN_MINS = 15;
+
 export class CheckProductPriceJob {
   private readonly logger: FastifyBaseLogger;
   private readonly parser: IParser;
@@ -28,7 +30,7 @@ export class CheckProductPriceJob {
     const products = await this.prismaService.product.findMany({
       where: {
         lastCheckedAt: {
-          lte: DateTime.now().minus({ minutes: 15 }).toJSDate(),
+          lte: DateTime.now().minus({ minutes: PRODUCT_LAST_CHECK_IN_MINS }).toJSDate(),
         },
       },
     });
