@@ -1,2 +1,2 @@
 export { ICradle } from './ioc.types';
-export { buildContainer } from './ioc.config';
+export { registerDependencies } from './ioc.config';

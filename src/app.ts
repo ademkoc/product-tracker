@@ -1,11 +1,19 @@
 import { fastifyAutoload } from '@fastify/autoload';
-import { fastifyAwilixPlugin } from '@fastify/awilix';
+import { fastifyAwilixPlugin, diContainer } from '@fastify/awilix';
 import Swagger from '@fastify/swagger';
 import SwaggerUI from '@fastify/swagger-ui';
 import Fastify from 'fastify';
 
+import { registerDependencies } from './infrastructure/ioc';
+
 export async function build() {
-  const server = Fastify({ logger: {} });
+  const server = Fastify({
+    logger: {},
+  });
+
+  registerDependencies(diContainer, {
+    logger: server.log,
+  });
 
   await server.register(Swagger, { openapi: {} });
   await server.register(SwaggerUI);

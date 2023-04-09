@@ -1,1 +1,1 @@
-export { ICradle, buildContainer } from './ioc';
+export { ICradle, registerDependencies } from './ioc';

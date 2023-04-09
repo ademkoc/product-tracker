@@ -1,15 +1,23 @@
-import { diContainer } from '@fastify/awilix';
 import { PrismaClient } from '@prisma/client';
+import type { AwilixContainer } from 'awilix';
 import { Lifetime, asClass, asFunction } from 'awilix';
+import { pino } from 'pino';
 
 import { PushNotificationService } from '../../modules/notification/push/push-notification.service';
 import { ColinsParser, MaviParser, ParserFacade, TrendyolParser } from '../../modules/parsers';
 import { CheckProductPriceJob, ProductService } from '../../modules/product';
 
+import type { ExternalDependencies } from './ioc.types';
+
 export const SINGLETON_CONFIG = { lifetime: Lifetime.SINGLETON };
 
-export function buildContainer() {
+export function registerDependencies(
+  diContainer: AwilixContainer,
+  dependencies: ExternalDependencies = {},
+) {
   diContainer.register({
+    logger: asFunction(() => dependencies.logger ?? pino(), SINGLETON_CONFIG),
+
     // database
     prismaService: asFunction(() => new PrismaClient(), {
       ...SINGLETON_CONFIG,

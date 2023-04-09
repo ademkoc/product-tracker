@@ -1,6 +1,7 @@
 import { Prisma, PrismaClient } from '@prisma/client';
 import { mock, mockReset, mockDeep } from 'vitest-mock-extended';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { type FastifyBaseLogger } from 'fastify';
 
 import { CheckProductPriceJob } from '../../src/modules/product/jobs/check-product-price.job';
 import { PushNotificationService } from '../../src/modules/notification/push/push-notification.service';
@@ -9,6 +10,7 @@ import type { IParser } from 'src/modules/parsers';
 const mockedParser = mock<IParser>();
 const mockedPrismaService = mockDeep<PrismaClient>();
 const mockedPushNotificationService = mock<PushNotificationService>();
+const mockedLogger = mock<FastifyBaseLogger>();
 
 describe('CheckProductPriceJob', () => {
   let sut: CheckProductPriceJob;
@@ -18,6 +20,7 @@ describe('CheckProductPriceJob', () => {
       parser: mockedParser,
       prismaService: mockedPrismaService,
       pushNotificationService: mockedPushNotificationService,
+      logger: mockedLogger,
     });
   });
 

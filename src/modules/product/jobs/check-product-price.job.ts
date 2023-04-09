@@ -1,18 +1,24 @@
 import type { PrismaClient, Product } from '@prisma/client';
+import type { FastifyBaseLogger } from 'fastify';
 import { DateTime } from 'luxon';
 import type { ICradle } from 'src/infrastructure';
 import type { PushNotificationService } from 'src/modules/notification/push/push-notification.service';
 import type { NotifyOptions } from 'src/modules/notification/push/push-notification.types';
 import type { IParser } from 'src/modules/parsers';
 
-type ConstructorOptions = Pick<ICradle, 'parser' | 'prismaService' | 'pushNotificationService'>;
+type ConstructorOptions = Pick<
+  ICradle,
+  'parser' | 'prismaService' | 'pushNotificationService' | 'logger'
+>;
 
 export class CheckProductPriceJob {
+  private readonly logger: FastifyBaseLogger;
   private readonly parser: IParser;
   private readonly prismaService: PrismaClient;
   private readonly notificationService: PushNotificationService;
 
   public constructor(opts: ConstructorOptions) {
+    this.logger = opts.logger;
     this.parser = opts.parser;
     this.prismaService = opts.prismaService;
     this.notificationService = opts.pushNotificationService;
@@ -28,21 +34,30 @@ export class CheckProductPriceJob {
     });
 
     if (products.length < 1) {
-      console.info('Nothing to check.');
+      this.logger.info('Nothing to check.');
       return;
     }
 
-    console.info(`Checking %s product...`, products.length);
+    this.logger.info('Checking %s product...', products.length);
 
     await Promise.all(products.map((product) => this.#checkCurrentPrice(product)));
 
-    console.info(`Finito.`);
+    this.logger.info('CheckProductPriceJob end.');
   }
 
   async #checkCurrentPrice(product: Product) {
+    this.logger.info('Checking product #%s ...', product.id);
+
     const currentPrice = await this.parser.parsePrice(product.url);
 
     if (product.amount.equals(currentPrice.amount) === false) {
+      this.logger.info(
+        'Product #%s price value is changed. Old value %s, new value',
+        product.id,
+        product.amount,
+        currentPrice.amount,
+      );
+
       await this.prismaService.priceHistory.create({
         data: {
           productId: product.id,
@@ -70,5 +85,7 @@ export class CheckProductPriceJob {
       where: { id: product.id },
       data: { lastCheckedAt: new Date() },
     });
+
+    this.logger.info('Checking product #%s is over.', product.id);
   }
 }
