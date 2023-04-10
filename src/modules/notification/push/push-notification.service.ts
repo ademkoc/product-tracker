@@ -1,12 +1,24 @@
+import type { ICradle } from 'src/infrastructure';
+import type { IConfig } from 'src/infrastructure/config/config.type';
 import { fetch } from 'undici';
 
 import type { INotificationService } from '../notification.type';
 
 import type { NotifyOptions } from './push-notification.types';
 
+type ConstructorOptions = Pick<ICradle, 'config'>;
+
 export class PushNotificationService implements INotificationService {
-  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-  public static URL = `${process.env.NOTIFICATION_SERVICE_URL}/${process.env.NOTIFICATION_TOPIC}`;
+  private readonly config: IConfig;
+  private readonly serviceURL: string;
+
+  public constructor(opts: ConstructorOptions) {
+    this.config = opts.config;
+    this.serviceURL = new URL(
+      this.config.notificationTopic,
+      this.config.notificationServiceURL,
+    ).toString();
+  }
 
   async notify(opts: NotifyOptions) {
     const options = {
@@ -20,6 +32,6 @@ export class PushNotificationService implements INotificationService {
       },
     };
 
-    await fetch(PushNotificationService.URL, options);
+    await fetch(this.serviceURL, options);
   }
 }

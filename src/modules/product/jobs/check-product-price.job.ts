@@ -2,24 +2,25 @@ import type { PrismaClient, Product } from '@prisma/client';
 import type { FastifyBaseLogger } from 'fastify';
 import { DateTime } from 'luxon';
 import type { ICradle } from 'src/infrastructure';
+import type { IConfig } from 'src/infrastructure/config/config.type';
 import type { PushNotificationService } from 'src/modules/notification/push/push-notification.service';
 import type { NotifyOptions } from 'src/modules/notification/push/push-notification.types';
 import type { IParser } from 'src/modules/parsers';
 
 type ConstructorOptions = Pick<
   ICradle,
-  'parser' | 'prismaService' | 'pushNotificationService' | 'logger'
+  'parser' | 'prismaService' | 'pushNotificationService' | 'logger' | 'config'
 >;
 
-const PRODUCT_LAST_CHECK_IN_MINS = 15;
-
 export class CheckProductPriceJob {
+  private readonly config: IConfig;
   private readonly logger: FastifyBaseLogger;
   private readonly parser: IParser;
   private readonly prismaService: PrismaClient;
   private readonly notificationService: PushNotificationService;
 
   public constructor(opts: ConstructorOptions) {
+    this.config = opts.config;
     this.logger = opts.logger;
     this.parser = opts.parser;
     this.prismaService = opts.prismaService;
@@ -30,7 +31,7 @@ export class CheckProductPriceJob {
     const products = await this.prismaService.product.findMany({
       where: {
         lastCheckedAt: {
-          lte: DateTime.now().minus({ minutes: PRODUCT_LAST_CHECK_IN_MINS }).toJSDate(),
+          lte: DateTime.now().minus({ minutes: this.config.productLastCheckInMins }).toJSDate(),
         },
       },
     });
