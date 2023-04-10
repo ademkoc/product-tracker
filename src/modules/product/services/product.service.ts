@@ -33,6 +33,15 @@ export class ProductService {
       },
     });
 
+    // save initial price
+    await this.prismaService.priceHistory.create({
+      data: {
+        productId: product.id,
+        amount: productDTO.amount,
+        currency: productDTO.currency,
+      },
+    });
+
     const productImages = productDTO.images.map((url) => ({
       productId: product.id,
       url,
