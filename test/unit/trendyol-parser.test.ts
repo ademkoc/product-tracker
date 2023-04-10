@@ -53,8 +53,6 @@ describe('TrendyolParser', () => {
 
       const result = await sut.parsePrice(url);
 
-      console.log({ result });
-
       expect(result).toMatchObject({
         amount: expect.any(Prisma.Decimal),
         currency: expect.stringContaining(Currency.TL),
