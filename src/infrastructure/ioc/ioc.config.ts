@@ -1,11 +1,12 @@
 import { PrismaClient } from '@prisma/client';
 import type { AwilixContainer } from 'awilix';
-import { Lifetime, asClass, asFunction } from 'awilix';
+import { asValue, Lifetime, asClass, asFunction } from 'awilix';
 import { pino } from 'pino';
 
 import { PushNotificationService } from '../../modules/notification/push/push-notification.service';
 import { ColinsParser, MaviParser, ParserFacade, TrendyolParser } from '../../modules/parsers';
 import { CheckProductPriceJob, ProductService } from '../../modules/product';
+import { getConfig } from '../config';
 
 import type { ExternalDependencies } from './ioc.types';
 
@@ -16,6 +17,7 @@ export function registerDependencies(
   dependencies: ExternalDependencies = {},
 ) {
   diContainer.register({
+    config: asValue(getConfig()),
     logger: asFunction(() => dependencies.logger ?? pino(), SINGLETON_CONFIG),
 
     // database

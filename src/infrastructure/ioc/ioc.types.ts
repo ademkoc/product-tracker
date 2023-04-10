@@ -4,9 +4,11 @@ import type { PushNotificationService } from 'src/modules/notification/push/push
 import type { IParser } from 'src/modules/parsers';
 
 import type { CheckProductPriceJob, ProductService } from '../../modules/product';
+import type { IConfig } from '../config/config.type';
 
 export interface ICradle {
   logger: FastifyBaseLogger;
+  config: IConfig;
   prismaService: PrismaClient;
   productService: ProductService;
   parser: IParser;
