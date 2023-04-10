@@ -92,7 +92,11 @@ export class CheckProductPriceJob {
 
     await this.prismaService.product.update({
       where: { id: product.id },
-      data: { lastCheckedAt: new Date() },
+      data: {
+        amount: currentPrice.amount,
+        currency: currentPrice.currency,
+        lastCheckedAt: new Date(),
+      },
     });
 
     this.logger.info('Checking product #%s is over.', product.id);
