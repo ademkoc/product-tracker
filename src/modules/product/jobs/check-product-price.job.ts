@@ -52,6 +52,11 @@ export class CheckProductPriceJob {
 
     const currentPrice = await this.parser.parsePrice(product.url);
 
+    if (!currentPrice) {
+      this.logger.error('Checking product #%s is failed!', product.id);
+      return;
+    }
+
     if (product.amount.equals(currentPrice.amount) === false) {
       this.logger.info(
         'Product #%s price value is changed. Old value %s, new value',
