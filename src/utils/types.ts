@@ -14,3 +14,5 @@ type Right<U> = {
  * @see {@link https://antman-does-software.com/stop-catching-errors-in-typescript-use-the-either-type-to-make-your-code-predictable Further reading on motivation for Either type}
  */
 export type Either<T, U> = NonNullable<Left<T> | Right<U>>;
+
+export type Maybe<T> = T | undefined;
