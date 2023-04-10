@@ -1,6 +1,6 @@
 # Product Tracker
 
-As a hobby project, I want to be notified when the products I like are on sale. The application currently supports the websites of Mavi and Colins. I will expand support based on the products I need.
+As a hobby project, I want to be notified when the products I like are discounted. The application currently supports the several websites. I will expand support based on the products I need.
 
 ## Installation
 
