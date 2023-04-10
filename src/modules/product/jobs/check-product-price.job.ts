@@ -59,10 +59,12 @@ export class CheckProductPriceJob {
 
     if (product.amount.equals(currentPrice.amount) === false) {
       this.logger.info(
-        'Product #%s price value is changed. Old value %s, new value',
+        'Product #%s price value is changed. Old price %s %s new price %s %s',
         product.id,
         product.amount,
+        product.currency,
         currentPrice.amount,
+        currentPrice.currency,
       );
 
       await this.prismaService.priceHistory.create({
@@ -77,9 +79,9 @@ export class CheckProductPriceJob {
     if (currentPrice.amount.lessThan(product.amount)) {
       const notificationOptions = {
         title: unescape(encodeURIComponent('Fiyat Düştü!')),
-        message: `${
-          product.title
-        } ürününün fiyatı ${currentPrice.amount.toString()} olarak güncellendi.`,
+        message: `${product.title} ürününün fiyatı ${currentPrice.amount.toString()} ${
+          currentPrice.currency
+        } olarak güncellendi.`,
         tags: ['zap', 'tada'],
         priority: 'default',
         actionLink: product.url,
