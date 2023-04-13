@@ -82,9 +82,9 @@ export class CheckProductPriceJob {
     if (currentPrice.amount.lessThan(product.amount)) {
       const notificationOptions = {
         title: unescape(encodeURIComponent('Fiyat Düştü!')),
-        message: `${product.title} ürününün fiyatı ${currentPrice.amount.toString()} ${
-          currentPrice.currency
-        } olarak güncellendi.`,
+        message: `${product.title} ürününün fiyatı ${currentPrice.amount
+          .toNumber()
+          .toLocaleString('tr-TR')} ${currentPrice.currency} olarak güncellendi.`,
         tags: ['zap', 'tada'],
         priority: 'default',
         actionLink: product.url,
