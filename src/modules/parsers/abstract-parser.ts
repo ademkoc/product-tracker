@@ -17,6 +17,14 @@ export abstract class AbstractParser {
   async #readSource(url: string) {
     const response = await fetch(url);
 
+    if (response.redirected) {
+      throw new Error('FETCH_RESPONSE_IS_REDIRECTED');
+    }
+
+    if (!response.ok) {
+      throw new Error('FETCH_RESPONSE_NOT_OK');
+    }
+
     const html = await response.text();
 
     return html;
@@ -24,6 +32,10 @@ export abstract class AbstractParser {
 
   #decodeSource(html: string, config: Schema) {
     const result = parse(html, config);
+
+    if (!result) {
+      throw new Error('CONFIG_NOT_MATCHED');
+    }
 
     return result;
   }

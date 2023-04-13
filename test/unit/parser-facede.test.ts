@@ -45,7 +45,7 @@ describe('ParserFacade', () => {
 
       const result = await sut.parseContent(url);
 
-      await testContextColins.teardown(context);
+      await testContextMavi.teardown(context);
 
       expect(result).toMatchObject({
         title: expect.stringMatching(/(\w+)/),
@@ -93,6 +93,80 @@ describe('ParserFacade', () => {
         currency: expect.stringContaining(Currency.TL),
         images: expect.arrayContaining([expect.stringContaining('https://')]),
       });
+    });
+  });
+
+  describe('#readSource()', () => {
+    it<LocalTestContext>('should throw an error when product link is redirected', async (context) => {
+      const url = new URL(
+        'https://www.mavi.com/madrid-acik-mavi-90s-street-jean-pantolon/p/000152-84116',
+      );
+
+      testContextMavi.setup(context);
+
+      context
+        .intercept({
+          path: '/some-redirection-page',
+          method: 'GET',
+        })
+        .reply(200);
+
+      context
+        .intercept({
+          path: url.pathname,
+          method: 'GET',
+        })
+        .reply(301, 'Moved Permanently', { headers: { location: '/some-redirection-page' } });
+
+      await expect(() => sut.parseContent(url.toString())).rejects.toThrowError(
+        'FETCH_RESPONSE_IS_REDIRECTED',
+      );
+
+      await testContextMavi.teardown(context);
+    });
+
+    it<LocalTestContext>('should throw an error when product fetch is failed', async (context) => {
+      const url = new URL(
+        'https://www.mavi.com/madrid-acik-mavi-90s-street-jean-pantolon/p/000152-84116',
+      );
+
+      testContextMavi.setup(context);
+
+      context
+        .intercept({
+          path: url.pathname,
+          method: 'GET',
+        })
+        .reply(502);
+
+      await expect(() => sut.parseContent(url.toString())).rejects.toThrowError(
+        'FETCH_RESPONSE_NOT_OK',
+      );
+
+      await testContextMavi.teardown(context);
+    });
+  });
+
+  describe('#decodeSource()', () => {
+    it<LocalTestContext>('should throw an error when product fetch is failed', async (context) => {
+      const url = new URL(
+        'https://www.mavi.com/madrid-acik-mavi-90s-street-jean-pantolon/p/000152-84116',
+      );
+
+      testContextMavi.setup(context);
+
+      context
+        .intercept({
+          path: url.pathname,
+          method: 'GET',
+        })
+        .reply(200, '<html></html>');
+
+      await expect(() => sut.parseContent(url.toString())).rejects.toThrowError(
+        'CONFIG_NOT_MATCHED',
+      );
+
+      await testContextMavi.teardown(context);
     });
   });
 });

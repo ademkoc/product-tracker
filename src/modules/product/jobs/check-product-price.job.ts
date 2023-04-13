@@ -51,9 +51,11 @@ export class CheckProductPriceJob {
   async #checkCurrentPrice(product: Product) {
     this.logger.info('Checking product #%s ...', product.id);
 
-    const currentPrice = await this.parser.parsePrice(product.url);
-
-    if (!currentPrice) {
+    let currentPrice;
+    try {
+      currentPrice = await this.parser.parsePrice(product.url);
+    } catch (error) {
+      this.logger.error(error);
       this.logger.error('Checking product #%s is failed!', product.id);
       return;
     }
