@@ -70,3 +70,7 @@ typings/
 # sqlite
 *.db
 *.db-journal
+
+# IDE
+.vscode
+.idea
