@@ -5,8 +5,8 @@ import { type FastifyBaseLogger } from 'fastify';
 
 import { CheckProductPriceJob } from '../../src/modules/product/jobs/check-product-price.job';
 import { PushNotificationService } from '../../src/modules/notification/push/push-notification.service';
-import type { IParser } from 'src/modules/parsers';
-import { getConfig } from 'src/infrastructure/config';
+import type { IParser } from '../../src/modules/parsers';
+import { getConfig } from '../../src/infrastructure/config';
 
 const mockedParser = mock<IParser>();
 const mockedPrismaService = mockDeep<PrismaClient>();

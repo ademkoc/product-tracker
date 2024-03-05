@@ -2,9 +2,9 @@ import path from 'node:path';
 import { Prisma } from '@prisma/client';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
-import { Currency } from 'src/constants';
+import { Currency } from '../../src/constants';
 import { LocalTestContext, createTestContext } from './_setup';
-import { ColinsStrategy, MaviStrategy, ParserContext, TrendyolStrategy } from 'src/modules/parsers';
+import { ColinsStrategy, MaviStrategy, ParserContext, TrendyolStrategy } from '../../src/modules/parsers';
 
 const testContextTrendyol = createTestContext(
   'https://www.trendyol.com',
