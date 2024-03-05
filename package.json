@@ -1,6 +1,6 @@
 {
   "name": "product-tracker",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "scripts": {
     "build": "tsc",
     "start:dev": "cross-env NODE_ENV=development node --require tsx/cjs --env-file=.env src/server.ts",
