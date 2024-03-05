@@ -51,4 +51,4 @@ COPY --chown=node:node --from=build /home/node/app/prod_node_modules node_module
 
 USER node
 
-CMD ["sh", "-c", "npx prisma migrate deploy && dumb-init node /home/node/app/src/server.js"]
+CMD ["sh", "-c", "npx prisma migrate deploy && dumb-init node /home/node/app/server.js"]

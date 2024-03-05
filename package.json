@@ -5,7 +5,7 @@
     "build": "tsc",
     "start:dev": "cross-env NODE_ENV=development node --require tsx/cjs --env-file=.env src/server.ts",
     "start:dev:watch": "cross-env NODE_ENV=development node --require tsx/cjs --watch --env-file=.env src/server.ts",
-    "start:prod": "tsc && cross-env NODE_ENV=production node dist/src/server.js",
+    "start:prod": "tsc && cross-env NODE_ENV=production node dist/server.js",
     "test": "cross-env DATABASE_URL=file:../test.db vitest --run",
     "test:watch": "cross-env DATABASE_URL=file:../test.db vitest",
     "test:coverage": "cross-env DATABASE_URL=file:../test.db vitest --coverage",
