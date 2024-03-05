@@ -4,7 +4,12 @@ import { asValue, Lifetime, asClass, asFunction } from 'awilix';
 import { pino } from 'pino';
 
 import { PushNotificationService } from '../../modules/notification/push/push-notification.service';
-import { ColinsStrategy, MaviStrategy, ParserContext, TrendyolStrategy } from '../../modules/parsers';
+import {
+  ColinsStrategy,
+  MaviStrategy,
+  ParserContext,
+  TrendyolStrategy,
+} from '../../modules/parsers';
 import { CheckProductPriceJob, ProductService } from '../../modules/product';
 import { getConfig } from '../config';
 

@@ -41,15 +41,15 @@ curl --request POST \
 
 ```json
 {
-	"data": {
-		"id": 1,
-		"url": "https://www.colins.com.tr/p/regular-fit-dugmeli-cepli-bej-erkek-mont-39024",
-		"title": "Regular Fit Düğmeli Cepli Bej Erkek Mont",
-		"amount": "999.95",
-		"currency": "TL",
-		"lastCheckedAt": "2023-04-07T13:03:16.143Z",
-		"createdAt": "2023-04-07T13:03:16.145Z",
-		"updatedAt": "2023-04-07T13:03:16.145Z"
-	}
+  "data": {
+    "id": 1,
+    "url": "https://www.colins.com.tr/p/regular-fit-dugmeli-cepli-bej-erkek-mont-39024",
+    "title": "Regular Fit Düğmeli Cepli Bej Erkek Mont",
+    "amount": "999.95",
+    "currency": "TL",
+    "lastCheckedAt": "2023-04-07T13:03:16.143Z",
+    "createdAt": "2023-04-07T13:03:16.145Z",
+    "updatedAt": "2023-04-07T13:03:16.145Z"
+  }
 }
 ```
