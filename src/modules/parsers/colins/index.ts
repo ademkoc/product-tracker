@@ -1,1 +1,1 @@
-export { ColinsParser } from './colins.parser';
+export { ColinsStrategy } from './colins.parser';

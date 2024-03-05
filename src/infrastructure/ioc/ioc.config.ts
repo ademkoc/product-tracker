@@ -4,7 +4,7 @@ import { asValue, Lifetime, asClass, asFunction } from 'awilix';
 import { pino } from 'pino';
 
 import { PushNotificationService } from '../../modules/notification/push/push-notification.service';
-import { ColinsParser, MaviParser, ParserFacade, TrendyolParser } from '../../modules/parsers';
+import { ColinsStrategy, MaviStrategy, ParserContext, TrendyolStrategy } from '../../modules/parsers';
 import { CheckProductPriceJob, ProductService } from '../../modules/product';
 import { getConfig } from '../config';
 
@@ -29,10 +29,10 @@ export function registerDependencies(
     }),
 
     // parser module
-    parser: asClass(ParserFacade, SINGLETON_CONFIG),
-    colinsParser: asClass(ColinsParser, SINGLETON_CONFIG),
-    maviParser: asClass(MaviParser, SINGLETON_CONFIG),
-    trendyolParser: asClass(TrendyolParser, SINGLETON_CONFIG),
+    parser: asClass(ParserContext, SINGLETON_CONFIG),
+    colinsStrategy: asClass(ColinsStrategy, SINGLETON_CONFIG),
+    maviStrategy: asClass(MaviStrategy, SINGLETON_CONFIG),
+    trendyolStrategy: asClass(TrendyolStrategy, SINGLETON_CONFIG),
 
     // product module
     productService: asClass(ProductService),

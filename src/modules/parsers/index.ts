@@ -1,5 +1,5 @@
-export { ParserFacade } from './parser-facade';
-export { MaviParser } from './mavi';
-export { ColinsParser } from './colins';
+export { ParserContext } from './parser-context';
+export { MaviStrategy } from './mavi';
+export { ColinsStrategy } from './colins';
 export { IParser } from './parser.types';
-export { TrendyolParser } from './trendyol';
+export { TrendyolStrategy } from './trendyol';

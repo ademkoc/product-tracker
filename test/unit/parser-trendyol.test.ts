@@ -2,7 +2,7 @@ import path from 'node:path';
 import { Prisma } from '@prisma/client';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
-import { TrendyolParser } from '../../src/modules/parsers';
+import { TrendyolStrategy } from '../../src/modules/parsers';
 import { createTestContext, type LocalTestContext } from './_setup';
 import { Currency } from '../../src/constants';
 
@@ -11,14 +11,14 @@ const testContext = createTestContext(
   path.join(__dirname, 'mock-data', 'trendyol_product.html'),
 );
 
-describe('TrendyolParser', () => {
-  let sut: TrendyolParser;
+describe('TrendyolStrategy', () => {
+  let sut: TrendyolStrategy;
 
   beforeEach<LocalTestContext>(testContext.setup);
   afterEach<LocalTestContext>(testContext.teardown);
 
   beforeEach<LocalTestContext>(() => {
-    sut = new TrendyolParser();
+    sut = new TrendyolStrategy();
   });
 
   it('is defined', () => {

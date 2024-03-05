@@ -1,1 +1,1 @@
-export { TrendyolParser } from './trendyol.parser';
+export { TrendyolStrategy } from './trendyol.parser';

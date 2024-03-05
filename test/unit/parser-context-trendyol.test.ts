@@ -4,21 +4,21 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
 import { Currency } from 'src/constants';
 import { LocalTestContext, createTestContext } from './_setup';
-import { ColinsParser, MaviParser, ParserFacade, TrendyolParser } from 'src/modules/parsers';
+import { ColinsStrategy, MaviStrategy, ParserContext, TrendyolStrategy } from 'src/modules/parsers';
 
 const testContextTrendyol = createTestContext(
   'https://www.trendyol.com',
   path.join(__dirname, 'mock-data', 'trendyol_product.html'),
 );
 
-describe('ParserFacade', () => {
-  let sut: ParserFacade;
+describe('ParserContext', () => {
+  let sut: ParserContext;
 
   beforeEach(() => {
-    sut = new ParserFacade({
-      colinsParser: new ColinsParser(),
-      maviParser: new MaviParser(),
-      trendyolParser: new TrendyolParser(),
+    sut = new ParserContext({
+      colinsStrategy: new ColinsStrategy(),
+      maviStrategy: new MaviStrategy(),
+      trendyolStrategy: new TrendyolStrategy(),
     });
   });
 

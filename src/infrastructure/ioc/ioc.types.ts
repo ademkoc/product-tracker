@@ -12,9 +12,9 @@ export interface ICradle {
   prismaService: PrismaClient;
   productService: ProductService;
   parser: IParser;
-  colinsParser: IParser;
-  maviParser: IParser;
-  trendyolParser: IParser;
+  colinsStrategy: IParser;
+  maviStrategy: IParser;
+  trendyolStrategy: IParser;
   checkProductPriceJob: CheckProductPriceJob;
   pushNotificationService: PushNotificationService;
 }

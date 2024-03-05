@@ -3,7 +3,7 @@ import { Prisma } from '@prisma/client';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
 import { Currency } from '../../src/constants/currencies';
-import { ColinsParser } from '../../src/modules/parsers/colins/colins.parser';
+import { ColinsStrategy } from '../../src/modules/parsers/colins/colins.parser';
 import { createTestContext, type LocalTestContext } from './_setup';
 
 const testContext = createTestContext(
@@ -11,14 +11,14 @@ const testContext = createTestContext(
   path.join(__dirname, 'mock-data', 'colins_product.html'),
 );
 
-describe('ColinsParser', () => {
-  let sut: ColinsParser;
+describe('ColinsStrategy', () => {
+  let sut: ColinsStrategy;
 
   beforeEach<LocalTestContext>(testContext.setup);
   afterEach<LocalTestContext>(testContext.teardown);
 
   beforeEach<LocalTestContext>(() => {
-    sut = new ColinsParser();
+    sut = new ColinsStrategy();
   });
 
   it('is defined', () => {

@@ -2,7 +2,7 @@ import path from 'node:path';
 import { Prisma } from '@prisma/client';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
-import { MaviParser } from '../../src/modules/parsers/mavi/mavi.parser';
+import { MaviStrategy } from '../../src/modules/parsers/mavi/mavi.strategy';
 import { createTestContext, type LocalTestContext } from './_setup';
 import { Currency } from '../../src/constants';
 
@@ -11,14 +11,14 @@ const testContext = createTestContext(
   path.join(__dirname, 'mock-data', 'mavi_product.html'),
 );
 
-describe('MaviParser', () => {
-  let sut: MaviParser;
+describe('MaviStrategy', () => {
+  let sut: MaviStrategy;
 
   beforeEach<LocalTestContext>(testContext.setup);
   afterEach<LocalTestContext>(testContext.teardown);
 
   beforeEach<LocalTestContext>(() => {
-    sut = new MaviParser();
+    sut = new MaviStrategy();
   });
 
   it('is defined', () => {
