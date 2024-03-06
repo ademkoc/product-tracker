@@ -72,5 +72,4 @@ typings/
 *.db-journal
 
 # IDE
-.vscode
 .idea
