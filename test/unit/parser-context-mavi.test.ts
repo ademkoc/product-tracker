@@ -98,7 +98,7 @@ describe('ParserContext', () => {
     });
   });
 
-  describe('#decodeSource()', () => {
+  describe('decodeSource()', () => {
     it<LocalTestContext>('should throw an error when product fetch is failed', async (context) => {
       const url = new URL(
         'https://www.mavi.com/madrid-acik-mavi-90s-street-jean-pantolon/p/000152-84116',

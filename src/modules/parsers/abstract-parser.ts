@@ -30,7 +30,7 @@ export abstract class AbstractParser {
     return html;
   }
 
-  #decodeSource(html: string, config: Schema) {
+  private decodeSource(html: string, config: Schema) {
     const result = parse(html, config);
 
     if (!result) {
@@ -42,13 +42,13 @@ export abstract class AbstractParser {
 
   async parseContent(url: string): Promise<ProductSchemaType> {
     const html = await this.readSource(url);
-    const result = this.#decodeSource(html, this.contentConfig);
+    const result = this.decodeSource(html, this.contentConfig);
     return { ...result, url } as ProductSchemaType;
   }
 
   async parsePrice(url: string): Promise<Price> {
     const html = await this.readSource(url);
-    const result = this.#decodeSource(html, this.priceConfig);
+    const result = this.decodeSource(html, this.priceConfig);
     return result as Price;
   }
 }
