@@ -14,7 +14,7 @@ export abstract class AbstractParser {
     this.priceConfig = opts.price;
   }
 
-  async #readSource(url: string) {
+  private async readSource(url: string) {
     const response = await fetch(url);
 
     if (response.redirected) {
@@ -41,13 +41,13 @@ export abstract class AbstractParser {
   }
 
   async parseContent(url: string): Promise<ProductSchemaType> {
-    const html = await this.#readSource(url);
+    const html = await this.readSource(url);
     const result = this.#decodeSource(html, this.contentConfig);
     return { ...result, url } as ProductSchemaType;
   }
 
   async parsePrice(url: string): Promise<Price> {
-    const html = await this.#readSource(url);
+    const html = await this.readSource(url);
     const result = this.#decodeSource(html, this.priceConfig);
     return result as Price;
   }

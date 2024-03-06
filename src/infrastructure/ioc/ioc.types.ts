@@ -15,6 +15,7 @@ export interface ICradle {
   colinsStrategy: IParser;
   maviStrategy: IParser;
   trendyolStrategy: IParser;
+  amazonStrategy: IParser;
   checkProductPriceJob: CheckProductPriceJob;
   pushNotificationService: PushNotificationService;
 }

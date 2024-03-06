@@ -4,7 +4,13 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
 import { Currency } from '../../src/constants';
 import { LocalTestContext, createTestContext } from './_setup';
-import { ColinsStrategy, MaviStrategy, ParserContext, TrendyolStrategy } from '../../src/modules/parsers';
+import {
+  AmazonStrategy,
+  ColinsStrategy,
+  MaviStrategy,
+  ParserContext,
+  TrendyolStrategy,
+} from '../../src/modules/parsers';
 
 const testContextColins = createTestContext(
   'https://www.colins.com.tr',
@@ -19,6 +25,7 @@ describe('ParserContext', () => {
       colinsStrategy: new ColinsStrategy(),
       maviStrategy: new MaviStrategy(),
       trendyolStrategy: new TrendyolStrategy(),
+      amazonStrategy: new AmazonStrategy(),
     });
   });
 

@@ -5,6 +5,7 @@ import { pino } from 'pino';
 
 import { PushNotificationService } from '../../modules/notification/push/push-notification.service';
 import {
+  AmazonStrategy,
   ColinsStrategy,
   MaviStrategy,
   ParserContext,
@@ -38,6 +39,7 @@ export function registerDependencies(
     colinsStrategy: asClass(ColinsStrategy, SINGLETON_CONFIG),
     maviStrategy: asClass(MaviStrategy, SINGLETON_CONFIG),
     trendyolStrategy: asClass(TrendyolStrategy, SINGLETON_CONFIG),
+    amazonStrategy: asClass(AmazonStrategy, SINGLETON_CONFIG),
 
     // product module
     productService: asClass(ProductService),
