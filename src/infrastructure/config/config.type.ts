@@ -12,6 +12,6 @@ export interface IConfig {
   environment: Environment;
   notificationTopic: string;
   notificationServiceURL: string;
-  checkProductPriceInMins: number;
-  productLastCheckInMins: number;
+  checkPriceJobIntervalInMins: number;
+  productSinceLastCheckInMins: number;
 }

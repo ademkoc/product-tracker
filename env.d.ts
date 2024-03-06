@@ -7,8 +7,8 @@ declare global {
       NOTIFICATION_SERVICE_URL: string;
       PORT: string;
       SERVICE_NAME: string;
-      CHECK_PRODUCT_PRICE_IN_MINS: string;
-      PRODUCT_LAST_CHECK_IN_MINS: string;
+      CHECK_PRICE_JOB_INTERVAL_IN_MINS: string;
+      PRODUCT_SINCE_LAST_CHECK_IN_MINS: string;
     }
   }
 }

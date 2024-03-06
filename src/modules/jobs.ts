@@ -5,7 +5,7 @@ export function registerJobs(app: FastifyInstance) {
   const { checkProductPriceJob, config } = app.diContainer.cradle;
 
   const job = new SimpleIntervalJob(
-    { minutes: config.checkProductPriceInMins },
+    { minutes: config.checkPriceJobIntervalInMins },
     new Task('CheckProductPriceJob', () => {
       void checkProductPriceJob.process();
     }),

@@ -31,7 +31,9 @@ export class CheckProductPriceJob {
     const products = await this.prismaService.product.findMany({
       where: {
         lastCheckedAt: {
-          lte: DateTime.now().minus({ minutes: this.config.productLastCheckInMins }).toJSDate(),
+          lte: DateTime.now()
+            .minus({ minutes: this.config.productSinceLastCheckInMins })
+            .toJSDate(),
         },
       },
     });

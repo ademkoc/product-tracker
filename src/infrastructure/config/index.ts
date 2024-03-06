@@ -9,7 +9,7 @@ export function getConfig() {
     databaseURL: getMandatoryEnv('DATABASE_URL'),
     notificationTopic: getMandatoryEnv('NOTIFICATION_TOPIC'),
     notificationServiceURL: getMandatoryEnv('NOTIFICATION_SERVICE_URL'),
-    checkProductPriceInMins: Number(getEnv('CHECK_PRODUCT_PRICE_IN_MINS')) || 5,
-    productLastCheckInMins: Number(getEnv('PRODUCT_LAST_CHECK_IN_MINS')) || 15,
+    checkPriceJobIntervalInMins: Number(getEnv('CHECK_PRICE_JOB_INTERVAL_IN_MINS')) || 5,
+    productSinceLastCheckInMins: Number(getEnv('PRODUCT_SINCE_LAST_CHECK_IN_MINS')) || 15,
   };
 }

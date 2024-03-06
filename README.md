@@ -13,8 +13,8 @@ docker run -i -t \
     -e DATABASE_URL='file:/home/node/app/prisma/tracker_app.db' \
     -e NOTIFICATION_TOPIC='product_tracker' \
     -e NOTIFICATION_SERVICE_URL='https://ntfy.sh' \
-    -e CHECK_PRODUCT_PRICE_IN_MINS='5' \
-    -e PRODUCT_LAST_CHECK_IN_MINS='15' \
+    -e CHECK_PRICE_JOB_INTERVAL_IN_MINS='5' \
+    -e PRODUCT_SINCE_LAST_CHECK_IN_MINS='15' \
     -p 3000:3000 \
     -v storage:/home/node/app/prisma \
     product-tracker
